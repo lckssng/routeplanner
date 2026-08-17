@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Ontdek welke middelbare school en onderwijsroute bij jou past met de Routeplanner."
+    />
+    <meta name="theme-color" content="#f7941d" />
+    <title>Doe de Routeplanner | Vindjouwschool.nl</title>
+  </head>
+  <body>
+    <site-header></site-header>
+
+    <main x-data="{ started: false }">
+      <section class="mx-auto max-w-[1120px] px-5 pb-16 pt-12 sm:px-8 lg:px-10 lg:pb-20 lg:pt-16">
+        <div class="grid items-center gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
+          <div>
+            <h1 class="route-title" aria-label="Welkom bij de Routeplanner">
+              <span class="block text-[clamp(2rem,4.1vw,3.75rem)] font-black leading-none text-[#e51075]">
+                Welkom bij
+              </span>
+              <span class="route-title-banner">de Routeplanner</span>
+            </h1>
+
+            <p class="mt-7 max-w-[590px] text-[1rem] leading-[1.52] text-[#4f4b4d] sm:text-[1.05rem]">
+              Ontdek welke schoolroutes bij jou passen. Beantwoord een paar korte vragen over je schooladvies,
+              interesses en toekomstwensen. Daarna ontvang je een persoonlijk overzicht met scholen en
+              onderwijsroutes die bij jou kunnen passen.
+            </p>
+
+            <div class="mt-8">
+              <h2 class="text-[1.65rem] font-black leading-tight text-[#e51075] sm:text-[1.9rem]">
+                Zo werkt het
+              </h2>
+
+              <ol class="mt-4 space-y-5">
+                <li class="route-step">
+                  <span class="route-step-number bg-[#009fe3]">1</span>
+                  <div>
+                    <h3 class="text-[1.08rem] font-extrabold leading-tight text-[#009fe3] sm:text-[1.2rem]">
+                      Vertel iets over <span class="marker marker-blue">jezelf</span>
+                    </h3>
+                    <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">
+                      Beantwoord een paar korte vragen over je schooladvies, interesses en wensen.
+                    </p>
+                  </div>
+                </li>
+
+                <li class="route-step">
+                  <span class="route-step-number bg-[#f7941d]">2</span>
+                  <div>
+                    <h3 class="text-[1.08rem] font-extrabold leading-tight text-[#f28b16] sm:text-[1.2rem]">
+                      <span class="marker marker-orange">Ontdek</span> jouw mogelijkheden
+                    </h3>
+                    <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">
+                      We laten routes zien die aansluiten bij jouw profiel en ambities.
+                    </p>
+                  </div>
+                </li>
+
+                <li class="route-step">
+                  <span class="route-step-number bg-[#df1678]">3</span>
+                  <div>
+                    <h3 class="text-[1.08rem] font-extrabold leading-tight text-[#df1678] sm:text-[1.2rem]">
+                      Bekijk jouw persoonlijke <span class="marker marker-pink">route</span>
+                    </h3>
+                    <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">
+                      Ontvang een persoonlijk overzicht met scholen, onderwijsniveaus en vervolgmogelijkheden.
+                    </p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="relative mx-auto w-full max-w-[455px] lg:mx-0 lg:justify-self-end">
+            <div class="route-photo-card">
+              <img
+                src="/src/assets/routeplanner-leerling.png"
+                alt="Een leerling met schoolboeken kijkt enthousiast vooruit"
+                class="h-full w-full object-cover object-[58%_center]"
+              />
+              <div class="absolute inset-y-0 left-0 w-[42%] bg-gradient-to-r from-[#fff9f6]/95 via-[#fff9f6]/55 to-transparent" aria-hidden="true"></div>
+
+              <div class="route-map" aria-hidden="true">
+                <span class="map-pin map-pin-pink"><i></i></span>
+                <span class="route-dot dot-pink"></span>
+                <span class="route-line line-one"></span>
+                <span class="route-star">✦</span>
+                <span class="route-line line-two"></span>
+                <span class="route-school">▥</span>
+                <span class="route-line line-three"></span>
+                <span class="map-pin map-pin-orange"><i></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 grid overflow-hidden rounded-xl bg-[#f9dcea] sm:grid-cols-3 lg:mt-14">
+          <article class="info-item">
+            <span class="info-icon" aria-hidden="true">◷</span>
+            <div>
+              <h3>±3 minuten</h3>
+              <p>De Routeplanner is snel en eenvoudig in te vullen.</p>
+            </div>
+          </article>
+          <article class="info-item">
+            <span class="info-icon" aria-hidden="true">✓</span>
+            <div>
+              <h3>Niks is fout</h3>
+              <p>Het gaat om wat jij leuk en belangrijk vindt.</p>
+            </div>
+          </article>
+          <article class="info-item">
+            <span class="info-icon" aria-hidden="true">↻</span>
+            <div>
+              <h3>Je kunt altijd terug</h3>
+              <p>Je kunt eerdere antwoorden later aanpassen.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="mt-10 flex flex-col items-center">
+          <button
+            type="button"
+            class="start-button"
+            @click="started = true"
+            aria-describedby="routeplanner-status"
+          >
+            <span class="start-button-icon" aria-hidden="true">➤</span>
+            <span>Start mijn routeplanner</span>
+          </button>
+          <p
+            id="routeplanner-status"
+            class="mt-3 min-h-5 text-center text-sm font-bold text-[#b61362]"
+            x-text="started ? 'De vragenlijst wordt in een volgende stap gekoppeld.' : ''"
+            aria-live="polite"
+          ></p>
+        </div>
+      </section>
+    </main>
+
+    <site-footer></site-footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
