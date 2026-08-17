@@ -852,3 +852,10 @@ export default function routeplanner() {
     },
   };
 }
+
+export {
+  QUESTIONS,
+  SCHOOLS,
+  LEVEL_LABELS,
+  CAREER_LABELS,
+};

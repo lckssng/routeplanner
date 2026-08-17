@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Complete user flow en beslislogica van de groep-8 Routeplanner."
+    />
+    <meta name="theme-color" content="#e51075" />
+    <title>Complete user flow | Routeplanner</title>
+  </head>
+  <body x-data="userFlow" class="flow-body">
+    <header class="flow-site-header">
+      <div class="flow-top-strip">
+        <div class="flow-shell flow-top-strip-inner">
+          <span>Heerlen · Landgraaf · Kerkrade</span>
+          <span>Interne beslisdocumentatie</span>
+        </div>
+      </div>
+      <div class="flow-shell flow-nav">
+        <a href="/" class="logo" aria-label="Terug naar Vindjouwschool.nl Routeplanner">
+          <span class="text-[#009fe3]">vind</span><span class="text-[#e51075]">jouw</span><span class="text-[#f7941d]">school</span><span class="text-[#3e3a3c]">.nl</span>
+        </a>
+        <a class="flow-back-link" href="/">← Terug naar de routeplanner</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="flow-hero">
+        <div class="flow-shell">
+          <p class="flow-kicker">Volledige beslisboom</p>
+          <h1>Gigantische user flow van de Routeplanner</h1>
+          <p class="flow-hero-copy">
+            Van de eerste klik tot de schoolpercentages, onderwijsroute en vervolgopleidingen. Hieronder staat wat iedere keuze doet en welke vervolgstap daardoor verandert.
+          </p>
+
+          <div class="flow-stat-grid" aria-label="Samenvatting van de user flow">
+            <article><strong>7</strong><span>vragen</span></article>
+            <article><strong x-text="totalChoices"></strong><span>keuzemogelijkheden</span></article>
+            <article><strong>9</strong><span>middelbare scholen</span></article>
+            <article><strong>3</strong><span>opleidingsadviezen</span></article>
+          </div>
+
+          <div class="flow-legend" aria-label="Legenda">
+            <span><i class="legend-question"></i> Vraag</span>
+            <span><i class="legend-choice"></i> Keuze</span>
+            <span><i class="legend-calculation"></i> Berekening</span>
+            <span><i class="legend-result"></i> Resultaat</span>
+          </div>
+        </div>
+      </section>
+
+      <nav class="flow-jump-nav" aria-label="Ga naar onderdeel">
+        <div class="flow-shell flow-jump-nav-inner">
+          <a href="#hoofdlijn">Hoofdlijn</a>
+          <a href="#vragen">Alle vragen</a>
+          <a href="#schoolscore">Schoolscore</a>
+          <a href="#routematrix">Routematrix</a>
+          <a href="#opleidingen">Vervolgopleidingen</a>
+          <a href="#schoolprofielen">Schoolprofielen</a>
+        </div>
+      </nav>
+
+      <div class="flow-shell flow-content">
+        <section id="hoofdlijn" class="flow-section">
+          <div class="flow-section-heading">
+            <span class="flow-section-number">00</span>
+            <div>
+              <p class="flow-eyebrow">Overzicht</p>
+              <h2>De hoofdlijn van begin tot resultaat</h2>
+            </div>
+          </div>
+
+          <div class="flow-overview" aria-label="Hoofdroute door de applicatie">
+            <div class="overview-node overview-start"><span>Start</span><strong>Welkom</strong></div>
+            <span class="overview-arrow">→</span>
+            <template x-for="question in questions" :key="question.id">
+              <div class="overview-pair">
+                <div class="overview-node overview-question">
+                  <span x-text="`Vraag ${question.number}`"></span>
+                  <strong x-text="question.title"></strong>
+                </div>
+                <span class="overview-arrow">→</span>
+              </div>
+            </template>
+            <div class="overview-node overview-calculation"><span>Berekening</span><strong>Score + route</strong></div>
+            <span class="overview-arrow">→</span>
+            <div class="overview-node overview-result"><span>Uitkomst</span><strong>Scholen + opleidingen</strong></div>
+          </div>
+
+          <div class="flow-three-output">
+            <article>
+              <span>1</span>
+              <h3>Schoolmatch</h3>
+              <p>Alle negen scholen krijgen punten en worden eerst op passend niveau en daarna op percentage gesorteerd.</p>
+            </article>
+            <article>
+              <span>2</span>
+              <h3>Jouw route</h3>
+              <p>Schooladvies en doorleerwens bepalen de onderwijsstappen; de interesse of baan vormt het eindpunt.</p>
+            </article>
+            <article>
+              <span>3</span>
+              <h3>Vervolgopleidingen</h3>
+              <p>Het toekomstberoep bepaalt de richting. Bij een WO-wens verschijnen uitsluitend WO-bachelors.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="vragen" class="flow-section">
+          <div class="flow-section-heading flow-heading-actions">
+            <div class="flow-heading-main">
+              <span class="flow-section-number">01–07</span>
+              <div>
+                <p class="flow-eyebrow">Interactieve details</p>
+                <h2>Wat gebeurt er bij iedere keuze?</h2>
+              </div>
+            </div>
+            <div class="flow-detail-actions">
+              <button type="button" @click="toggleAll(true)">Alles openen</button>
+              <button type="button" @click="toggleAll(false)">Alles sluiten</button>
+            </div>
+          </div>
+
+          <div class="question-flow-list">
+            <template x-for="(question, questionIndex) in questions" :key="question.id">
+              <div class="question-flow-step">
+                <details class="flow-question" open>
+                  <summary>
+                    <span class="question-number" x-text="question.number"></span>
+                    <span class="question-summary-copy">
+                      <small x-text="`Vraag ${question.number} van 7`"></small>
+                      <strong x-text="question.title"></strong>
+                      <em x-text="question.subtitle"></em>
+                    </span>
+                    <span class="question-choice-count" x-text="`${question.options.length} keuzes`"></span>
+                    <span class="question-chevron" aria-hidden="true">⌄</span>
+                  </summary>
+
+                  <div class="flow-option-grid">
+                    <template x-for="option in question.options" :key="option.value">
+                      <article class="flow-option-card" :class="`flow-tone-${option.tone || 'gray'}`">
+                        <div class="option-card-top">
+                          <span class="option-dot"></span>
+                          <h3 x-text="option.label"></h3>
+                        </div>
+                        <span class="option-points" x-text="option.effect.points"></span>
+                        <p x-text="option.effect.description"></p>
+                        <div class="option-schools" x-show="option.effect.schools.length">
+                          <strong>Direct passende scholen</strong>
+                          <span x-text="option.effect.schools.join(' · ')"></span>
+                        </div>
+                      </article>
+                    </template>
+                  </div>
+                </details>
+                <div class="question-connector" x-show="questionIndex < questions.length - 1" aria-hidden="true">
+                  <span>↓</span>
+                  <small>antwoord wordt onthouden</small>
+                </div>
+              </div>
+            </template>
+          </div>
+        </section>
+
+        <section id="schoolscore" class="flow-section">
+          <div class="flow-section-heading">
+            <span class="flow-section-number">08</span>
+            <div>
+              <p class="flow-eyebrow">Berekening</p>
+              <h2>Van antwoorden naar schoolpercentage</h2>
+            </div>
+          </div>
+
+          <div class="score-layout">
+            <div class="score-stack">
+              <template x-for="(step, index) in scoreSteps" :key="step[0]">
+                <article class="score-step">
+                  <span class="score-index" x-text="index + 1"></span>
+                  <div><strong x-text="step[0]"></strong><p x-text="step[2]"></p></div>
+                  <b x-text="step[1]"></b>
+                </article>
+              </template>
+            </div>
+
+            <aside class="score-formula-card">
+              <p class="flow-eyebrow">Formule</p>
+              <code>22 + (punten ÷ 111) × 76</code>
+              <ul>
+                <li>Het eindpercentage ligt altijd tussen 24% en 98%.</li>
+                <li>Geen passend of aansluitend niveau: maximaal 49%.</li>
+                <li>Alleen een aansluitend niveau: maximaal 79%.</li>
+                <li>Exact niveau staat altijd boven aansluitend niveau.</li>
+                <li>Aansluitend niveau staat altijd boven een verkeerd niveau.</li>
+                <li>Pas binnen dezelfde niveaugroep sorteert het percentage.</li>
+              </ul>
+              <div class="score-warning">
+                <strong>Belangrijk</strong>
+                <p>Het percentage is een indicatieve matchscore en geen wetenschappelijke kansberekening.</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="routematrix" class="flow-section">
+          <div class="flow-section-heading">
+            <span class="flow-section-number">09</span>
+            <div>
+              <p class="flow-eyebrow">Routegenerator</p>
+              <h2>Iedere combinatie van advies en doorleerwens</h2>
+            </div>
+          </div>
+          <p class="flow-section-intro">
+            Iedere cel toont de daadwerkelijke route die de applicatie nu genereert. “Interesse/baan” wordt daarna ingevuld vanuit vraag 4 of, bij “nog geen idee”, vanuit de eerste interesse van vraag 3.
+          </p>
+
+          <div class="route-matrix">
+            <template x-for="row in routeRows" :key="row.advice">
+              <article class="route-matrix-row">
+                <h3 x-text="row.advice"></h3>
+                <div class="route-matrix-cells">
+                  <template x-for="route in row.routes" :key="route.ambition">
+                    <div class="route-matrix-cell">
+                      <strong x-text="route.ambition"></strong>
+                      <div class="mini-route">
+                        <template x-for="(step, stepIndex) in route.path" :key="`${route.ambition}-${stepIndex}`">
+                          <span class="mini-route-pair">
+                            <span class="mini-route-step" :class="{ 'mini-route-result': step.type === 'future' }">
+                              <b x-text="step.label"></b>
+                              <small x-show="step.duration" x-text="step.duration"></small>
+                            </span>
+                            <i x-show="stepIndex < route.path.length - 1">→</i>
+                          </span>
+                        </template>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </article>
+            </template>
+          </div>
+        </section>
+
+        <section id="opleidingen" class="flow-section">
+          <div class="flow-section-heading">
+            <span class="flow-section-number">10</span>
+            <div>
+              <p class="flow-eyebrow">Opleidingskeuze</p>
+              <h2>Welke vervolgopleidingen verschijnen?</h2>
+            </div>
+          </div>
+          <p class="flow-section-intro">
+            Bij werk, mbo of hbo gebruikt de planner de regionale mbo/hbo-set. Bij een gekozen WO-route schakelt dezelfde richting over naar drie bachelors van Maastricht University.
+          </p>
+
+          <div class="program-flow-list">
+            <template x-for="row in programRows" :key="row.key">
+              <details class="program-flow-row">
+                <summary>
+                  <strong x-text="row.label"></strong>
+                  <span>3 regionaal + 3 wo</span>
+                  <i aria-hidden="true">⌄</i>
+                </summary>
+                <div class="program-columns">
+                  <div>
+                    <h3>Mbo/hbo-route</h3>
+                    <template x-for="program in row.vocational" :key="program.url">
+                      <a :href="program.url" target="_blank" rel="noopener noreferrer">
+                        <span x-text="program.level"></span>
+                        <strong x-text="program.name"></strong>
+                        <small x-text="program.school"></small>
+                      </a>
+                    </template>
+                  </div>
+                  <div>
+                    <h3>Wo-route</h3>
+                    <template x-for="program in row.university" :key="program.url">
+                      <a :href="program.url" target="_blank" rel="noopener noreferrer">
+                        <span x-text="program.level"></span>
+                        <strong x-text="program.name"></strong>
+                        <small x-text="program.school"></small>
+                      </a>
+                    </template>
+                  </div>
+                </div>
+              </details>
+            </template>
+          </div>
+        </section>
+
+        <section id="schoolprofielen" class="flow-section">
+          <div class="flow-section-heading">
+            <span class="flow-section-number">11</span>
+            <div>
+              <p class="flow-eyebrow">Brongegevens</p>
+              <h2>Profiel waarop iedere school wordt gematcht</h2>
+            </div>
+          </div>
+
+          <div class="school-profile-grid">
+            <template x-for="school in schools" :key="school.id">
+              <article class="school-profile" :style="`--school-color: ${school.color}`">
+                <div class="school-profile-heading">
+                  <span x-text="school.initials"></span>
+                  <div><h3 x-text="school.name"></h3><p x-text="school.location"></p></div>
+                </div>
+                <dl>
+                  <div><dt>Niveaus</dt><dd x-text="school.levelsText"></dd></div>
+                  <div><dt>Interesses</dt><dd x-text="school.interestsText"></dd></div>
+                  <div><dt>Beroepen</dt><dd x-text="school.careersText"></dd></div>
+                  <div><dt>Leren</dt><dd x-text="school.learningText"></dd></div>
+                  <div><dt>Belangrijk</dt><dd x-text="school.valuesText"></dd></div>
+                </dl>
+                <a :href="school.website" target="_blank" rel="noopener noreferrer">Open schoolwebsite →</a>
+              </article>
+            </template>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="flow-footer">
+      <div class="flow-shell">
+        <strong>Routeplanner user flow</strong>
+        <a href="/">Terug naar de werkende routeplanner →</a>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/user-flow.js"></script>
+  </body>
+</html>
