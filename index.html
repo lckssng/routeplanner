@@ -10,11 +10,17 @@
     <meta name="theme-color" content="#f7941d" />
     <title>Doe de Routeplanner | Vindjouwschool.nl</title>
   </head>
-  <body>
+  <body
+    x-data="routeplanner"
+    @show-routeplanner-intro.window="showIntro()"
+  >
     <site-header></site-header>
 
-    <main x-data="{ started: false }">
-      <section class="mx-auto max-w-[1120px] px-5 pb-16 pt-12 sm:px-8 lg:px-10 lg:pb-20 lg:pt-16">
+    <main>
+      <section
+        x-show="view === 'intro'"
+        class="mx-auto max-w-[1120px] px-5 pb-16 pt-12 sm:px-8 lg:px-10 lg:pb-20 lg:pt-16"
+      >
         <div class="grid items-center gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
           <div>
             <h1 class="route-title" aria-label="Welkom bij de Routeplanner">
@@ -31,10 +37,7 @@
             </p>
 
             <div class="mt-8">
-              <h2 class="text-[1.65rem] font-black leading-tight text-[#e51075] sm:text-[1.9rem]">
-                Zo werkt het
-              </h2>
-
+              <h2 class="text-[1.65rem] font-black leading-tight text-[#e51075] sm:text-[1.9rem]">Zo werkt het</h2>
               <ol class="mt-4 space-y-5">
                 <li class="route-step">
                   <span class="route-step-number bg-[#009fe3]">1</span>
@@ -42,33 +45,25 @@
                     <h3 class="text-[1.08rem] font-extrabold leading-tight text-[#009fe3] sm:text-[1.2rem]">
                       Vertel iets over <span class="marker marker-blue">jezelf</span>
                     </h3>
-                    <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">
-                      Beantwoord een paar korte vragen over je schooladvies, interesses en wensen.
-                    </p>
+                    <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">Beantwoord een paar korte vragen over je schooladvies, interesses en wensen.</p>
                   </div>
                 </li>
-
                 <li class="route-step">
                   <span class="route-step-number bg-[#f7941d]">2</span>
                   <div>
                     <h3 class="text-[1.08rem] font-extrabold leading-tight text-[#f28b16] sm:text-[1.2rem]">
                       <span class="marker marker-orange">Ontdek</span> jouw mogelijkheden
                     </h3>
-                    <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">
-                      We laten routes zien die aansluiten bij jouw profiel en ambities.
-                    </p>
+                    <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">We laten routes zien die aansluiten bij jouw profiel en ambities.</p>
                   </div>
                 </li>
-
                 <li class="route-step">
                   <span class="route-step-number bg-[#df1678]">3</span>
                   <div>
                     <h3 class="text-[1.08rem] font-extrabold leading-tight text-[#df1678] sm:text-[1.2rem]">
                       Bekijk jouw persoonlijke <span class="marker marker-pink">route</span>
                     </h3>
-                    <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">
-                      Ontvang een persoonlijk overzicht met scholen, onderwijsniveaus en vervolgmogelijkheden.
-                    </p>
+                    <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">Ontvang een persoonlijk overzicht met scholen, onderwijsniveaus en vervolgmogelijkheden.</p>
                   </div>
                 </li>
               </ol>
@@ -80,20 +75,8 @@
               <img
                 src="/src/assets/routeplanner-leerling.png"
                 alt="Een leerling met schoolboeken kijkt enthousiast vooruit"
-                class="h-full w-full object-cover object-[58%_center]"
+                class="h-auto w-full"
               />
-              <div class="absolute inset-y-0 left-0 w-[42%] bg-gradient-to-r from-[#fff9f6]/95 via-[#fff9f6]/55 to-transparent" aria-hidden="true"></div>
-
-              <div class="route-map" aria-hidden="true">
-                <span class="map-pin map-pin-pink"><i></i></span>
-                <span class="route-dot dot-pink"></span>
-                <span class="route-line line-one"></span>
-                <span class="route-star">✦</span>
-                <span class="route-line line-two"></span>
-                <span class="route-school">▥</span>
-                <span class="route-line line-three"></span>
-                <span class="map-pin map-pin-orange"><i></i></span>
-              </div>
             </div>
           </div>
         </div>
@@ -101,43 +84,254 @@
         <div class="mt-12 grid overflow-hidden rounded-xl bg-[#f9dcea] sm:grid-cols-3 lg:mt-14">
           <article class="info-item">
             <span class="info-icon" aria-hidden="true">◷</span>
-            <div>
-              <h3>±3 minuten</h3>
-              <p>De Routeplanner is snel en eenvoudig in te vullen.</p>
-            </div>
+            <div><h3>±3 minuten</h3><p>De Routeplanner is snel en eenvoudig in te vullen.</p></div>
           </article>
           <article class="info-item">
             <span class="info-icon" aria-hidden="true">✓</span>
-            <div>
-              <h3>Niks is fout</h3>
-              <p>Het gaat om wat jij leuk en belangrijk vindt.</p>
-            </div>
+            <div><h3>Niks is fout</h3><p>Het gaat om wat jij leuk en belangrijk vindt.</p></div>
           </article>
           <article class="info-item">
             <span class="info-icon" aria-hidden="true">↻</span>
-            <div>
-              <h3>Je kunt altijd terug</h3>
-              <p>Je kunt eerdere antwoorden later aanpassen.</p>
-            </div>
+            <div><h3>Je kunt altijd terug</h3><p>Je kunt eerdere antwoorden later aanpassen.</p></div>
           </article>
         </div>
 
         <div class="mt-10 flex flex-col items-center">
-          <button
-            type="button"
-            class="start-button"
-            @click="started = true"
-            aria-describedby="routeplanner-status"
-          >
+          <button type="button" class="start-button" @click="start(true)">
             <span class="start-button-icon" aria-hidden="true">➤</span>
             <span>Start mijn routeplanner</span>
           </button>
-          <p
-            id="routeplanner-status"
-            class="mt-3 min-h-5 text-center text-sm font-bold text-[#b61362]"
-            x-text="started ? 'De vragenlijst wordt in een volgende stap gekoppeld.' : ''"
-            aria-live="polite"
-          ></p>
+        </div>
+      </section>
+
+      <section
+        id="vragen"
+        x-show="view === 'quiz'"
+        x-cloak
+        class="quiz-page"
+        aria-labelledby="question-title"
+      >
+        <div class="quiz-panel">
+          <div class="flex items-center justify-between gap-4 text-xs font-extrabold italic text-[#e51075]">
+            <button type="button" class="quiz-back" @click="back()"><span aria-hidden="true">‹</span> Terug</button>
+            <p>Vraag <span x-text="currentStep + 1"></span> van 7</p>
+          </div>
+
+          <div
+            class="progress-track"
+            role="progressbar"
+            aria-label="Voortgang Routeplanner"
+            :aria-valuenow="Math.round(progress)"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <span class="progress-value" :style="`width: ${progress}%`"></span>
+          </div>
+
+          <div class="mt-8">
+            <h1 id="question-title" class="quiz-title" x-text="question.title"></h1>
+            <p class="quiz-subtitle" x-text="question.subtitle"></p>
+          </div>
+
+          <div class="answer-grid" :class="question.columns === 2 ? 'sm:grid-cols-2' : ''">
+            <template x-for="option in question.options" :key="option.value">
+              <button
+                type="button"
+                class="answer-card"
+                :class="isSelected(option.value) ? 'answer-card-selected' : ''"
+                :aria-pressed="isSelected(option.value)"
+                @click="select(option.value)"
+              >
+                <span class="answer-icon" :class="`answer-icon-${option.tone}`" aria-hidden="true" x-text="option.icon"></span>
+                <span x-text="option.label"></span>
+                <span class="answer-check" aria-hidden="true">✓</span>
+              </button>
+            </template>
+          </div>
+
+          <div class="mt-3 min-h-6 text-sm font-bold text-[#c41168]" aria-live="polite">
+            <p x-show="question.multi && !selectionMessage">
+              <span x-text="answers.interests.length"></span> van maximaal 3 gekozen
+            </p>
+            <p x-text="selectionMessage"></p>
+          </div>
+
+          <div class="mt-3 flex justify-end">
+            <button
+              x-show="currentStep === 0"
+              type="button"
+              class="quiz-button quiz-skip"
+              @click="canContinue ? next() : skip()"
+            >
+              <span x-text="canContinue ? 'Volgende' : 'Overslaan'"></span>
+              <span aria-hidden="true">›</span>
+            </button>
+            <button
+              x-show="currentStep > 0"
+              type="button"
+              class="quiz-button"
+              :disabled="!canContinue"
+              @click="next()"
+            >
+              <span x-text="currentStep === 6 ? 'Bekijk mijn route' : 'Volgende'"></span>
+              <span aria-hidden="true">›</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="resultaat"
+        x-show="view === 'results'"
+        x-cloak
+        class="results-page"
+        aria-labelledby="results-title"
+      >
+        <div class="mx-auto max-w-[930px] px-5 py-12 sm:px-8 lg:py-16">
+          <div class="results-back-row">
+            <button type="button" class="quiz-back" @click="editAnswers()">
+              <span aria-hidden="true">‹</span> Terug naar vraag 7
+            </button>
+          </div>
+
+          <header class="text-center">
+            <h1 id="results-title" class="results-title">Dit is <span>jouw route</span></h1>
+            <p class="mx-auto mt-4 max-w-[590px] text-[0.96rem] leading-relaxed text-[#554f51]" x-text="routeSummary"></p>
+          </header>
+
+          <div
+            class="route-result-grid"
+            :class="routeCards.length <= 4 ? 'route-layout-horizontal' : 'route-layout-grid'"
+          >
+            <template x-for="(card, index) in routeCards" :key="card.id">
+              <div
+                class="route-flow-item"
+                :class="`route-arrow-${card.arrowDirection}`"
+                :style="card.gridColumn
+                  ? `--grid-column: ${card.gridColumn}; --grid-row: ${card.gridRow}`
+                  : ''"
+              >
+                <article
+                  class="route-result-card"
+                  :class="{ 'route-result-card-future': card.type === 'future' }"
+                  :style="`--card-color: ${card.color}`"
+                >
+                  <div class="route-info-wrap" x-show="card.type !== 'future'">
+                    <button
+                      type="button"
+                      class="route-info-button"
+                      :aria-label="`Uitleg over ${card.value}`"
+                      :aria-describedby="`${card.id}-info`"
+                    >i</button>
+                    <span
+                      class="route-info-tooltip"
+                      role="tooltip"
+                      :id="`${card.id}-info`"
+                      x-text="card.info"
+                    ></span>
+                  </div>
+                  <p x-text="card.eyebrow"></p>
+                  <h2 x-text="card.value"></h2>
+                  <template x-if="card.type !== 'future'">
+                    <span class="route-duration">
+                      <span aria-hidden="true">◷</span>
+                      <span x-text="card.duration"></span>
+                    </span>
+                  </template>
+                  <template x-if="card.type === 'future'">
+                    <a class="route-program-link" href="#vervolgopleidingen">
+                      Vervolgopleidingen <span aria-hidden="true">↓</span>
+                    </a>
+                  </template>
+                </article>
+                <span
+                  x-show="index < routeCards.length - 1"
+                  class="route-flow-arrow"
+                  aria-hidden="true"
+                >→</span>
+              </div>
+            </template>
+          </div>
+          <p class="route-duration-note">
+            De jaren zijn gebruikelijke studieduren. Overstappen, toelating en een eventueel schakeltraject kunnen per leerling en opleiding verschillen.
+          </p>
+
+          <section class="mt-14" aria-labelledby="school-matches-title">
+            <div class="text-center">
+              <h2 id="school-matches-title" class="section-ribbon ribbon-blue">Scholen die bij jou passen</h2>
+              <p class="mt-3 text-sm text-[#625b5e]">Alle negen SVO|PL-scholen zijn vergeleken met jouw antwoorden.</p>
+            </div>
+
+            <div class="mx-auto mt-7 max-w-[760px] space-y-3">
+              <template x-for="school in visibleSchools" :key="school.id">
+                <a
+                  class="school-match-card"
+                  :style="`--school-color: ${school.color}`"
+                  :href="school.website"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div class="match-ring" :style="`--score: ${school.percentage}; --ring-color: ${school.color}`">
+                    <span x-text="`${school.percentage}%`"></span>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <h3 x-text="school.name"></h3>
+                    <div class="mt-2 flex flex-wrap gap-1.5">
+                      <span class="school-badge" x-text="school.levelLabel"></span>
+                      <template x-for="reason in school.reasons" :key="reason">
+                        <span class="school-badge" x-text="reason"></span>
+                      </template>
+                    </div>
+                  </div>
+                  <span class="school-arrow" aria-hidden="true">»</span>
+                </a>
+              </template>
+            </div>
+
+            <div class="mt-5 text-center">
+              <button type="button" class="show-all-button" @click="showAllSchools = !showAllSchools">
+                <span x-text="showAllSchools ? 'Toon alleen de beste 3' : 'Bekijk alle 9 scholen'"></span>
+                <span aria-hidden="true" x-text="showAllSchools ? '↑' : '↓'"></span>
+              </button>
+              <p class="mx-auto mt-3 max-w-[660px] text-xs leading-relaxed text-[#786f73]">
+                Scholen die jouw onderwijsniveau aanbieden staan altijd boven scholen zonder dat niveau. De percentages zijn daarna een indicatieve match op basis van woonplaats, interesses, toekomstbeeld, leerstijl en schoolvoorkeuren.
+              </p>
+            </div>
+          </section>
+
+          <section id="vervolgopleidingen" class="mt-14" aria-labelledby="programs-title">
+            <div class="text-center">
+              <h2 id="programs-title" class="section-ribbon ribbon-orange">Vervolgopleidingen in de buurt</h2>
+              <p
+                class="mt-3 text-sm text-[#625b5e]"
+                x-text="answers.ambition === 'wo'
+                  ? 'Drie WO-bachelors in Maastricht die passen bij jouw gekozen richting.'
+                  : 'Drie opleidingen in Zuid-Limburg die passen bij jouw gekozen richting.'"
+              ></p>
+            </div>
+
+            <div class="program-grid">
+              <template x-for="program in recommendedPrograms" :key="program.url">
+                <a
+                  class="program-card"
+                  :style="`--program-color: ${program.color}`"
+                  :href="program.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="program-level" x-text="program.level"></span>
+                  <strong x-text="program.school"></strong>
+                  <span x-text="program.name"></span>
+                  <i aria-hidden="true">Bekijk opleiding ›</i>
+                </a>
+              </template>
+            </div>
+          </section>
+
+          <div class="mt-10 flex flex-wrap justify-center gap-3">
+            <button type="button" class="results-action results-action-orange" @click="start(true)">Opnieuw doen <span aria-hidden="true">↻</span></button>
+            <button type="button" class="results-action results-action-blue" @click="editAnswers()">Antwoorden aanpassen <span aria-hidden="true">‹</span></button>
+          </div>
         </div>
       </section>
     </main>
@@ -146,4 +340,3 @@
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
-

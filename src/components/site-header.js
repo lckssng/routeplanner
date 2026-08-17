@@ -11,7 +11,7 @@ class SiteHeader extends HTMLElement {
       <header x-data="{ mobileOpen: false }" @keydown.escape.window="mobileOpen = false">
         <div class="bg-[#f7941d] text-white">
           <div class="mx-auto flex min-h-10 max-w-[1120px] items-center justify-between gap-4 px-5 py-2 text-[0.72rem] font-bold sm:px-8 sm:text-xs lg:px-10">
-            <p>Horion · Landgraaf · Kerkrade</p>
+            <p>Heerlen · Landgraaf · Kerkrade</p>
             <a class="top-link" href="#agenda">Bekijk open dagen <span aria-hidden="true">»</span></a>
           </div>
         </div>
@@ -29,7 +29,7 @@ class SiteHeader extends HTMLElement {
                     `<a class="nav-link" href="${href}">${label}</a>`,
                 )
                 .join('')}
-              <a href="#routeplanner" class="nav-cta">Doe de routeplanner <span aria-hidden="true">›</span></a>
+              <a href="#" class="nav-cta" @click.prevent="$dispatch('show-routeplanner-intro')">Doe de routeplanner <span aria-hidden="true">›</span></a>
             </nav>
 
             <button
@@ -61,7 +61,7 @@ class SiteHeader extends HTMLElement {
                     `<a class="mobile-nav-link" href="${href}" @click="mobileOpen = false">${label}</a>`,
                 )
                 .join('')}
-              <a href="#routeplanner" class="nav-cta mt-3 justify-center" @click="mobileOpen = false">Doe de routeplanner <span aria-hidden="true">›</span></a>
+              <a href="#" class="nav-cta mt-3 justify-center" @click.prevent="mobileOpen = false; $dispatch('show-routeplanner-intro')">Doe de routeplanner <span aria-hidden="true">›</span></a>
             </div>
           </nav>
         </div>
@@ -71,4 +71,3 @@ class SiteHeader extends HTMLElement {
 }
 
 customElements.define('site-header', SiteHeader);
-

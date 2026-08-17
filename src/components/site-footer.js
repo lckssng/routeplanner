@@ -5,7 +5,7 @@ const footerColumns = [
   },
   {
     title: 'Scholen',
-    links: ['Beroepscollege Brandenberg', 'Beroepscollege Heerlen', 'Beroepscollege Holz', 'Beroepscollege PPL', 'Beroepscollege Parkstad', 'De Nieuwe Thermen', 'Eijkhagen College', 'Sint-Janscollege', 'Techniekcollege'],
+    links: ['Beroepscollege Brandenberg', 'Beroepscollege Herle', 'Beroepscollege Holz', 'Beroepscollege PPL', 'Bernardinuscollege', 'De Nieuwe Thermen', 'Eijkhagen College', 'Sintermeertencollege', 'Techniekcollege'],
   },
   {
     title: 'Handige links',
@@ -47,4 +47,3 @@ class SiteFooter extends HTMLElement {
 }
 
 customElements.define('site-footer', SiteFooter);
-
