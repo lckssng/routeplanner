@@ -7,7 +7,7 @@
       name="description"
       content="Complete user flow en beslislogica van de groep-8 Routeplanner."
     />
-    <meta name="theme-color" content="#e51075" />
+    <meta name="theme-color" content="#DB127A" />
     <title>Complete user flow | Routeplanner</title>
   </head>
   <body x-data="userFlow" class="flow-body">
@@ -32,7 +32,7 @@
           <p class="flow-kicker">Volledige beslisboom</p>
           <h1>Gigantische user flow van de Routeplanner</h1>
           <p class="flow-hero-copy">
-            Van de eerste klik tot de schoolpercentages, onderwijsroute en vervolgopleidingen. Hieronder staat wat iedere keuze doet en welke vervolgstap daardoor verandert.
+            Van de eerste klik tot de schoolpercentages, gedeelde rangnummers, volledige middelbareschoolroute en vervolgopleidingen. Hieronder staat wat iedere keuze in de huidige versie doet.
           </p>
 
           <div class="flow-stat-grid" aria-label="Samenvatting van de user flow">
@@ -93,7 +93,7 @@
             <article>
               <span>1</span>
               <h3>Schoolmatch</h3>
-              <p>Alle negen scholen krijgen punten en worden eerst op passend niveau en daarna op percentage gesorteerd.</p>
+              <p>Alle negen scholen krijgen punten. De volgorde gebruikt eerst het passende niveau, daarna zo nodig de volledige middelbareschoolroute en vervolgens het percentage.</p>
             </article>
             <article>
               <span>2</span>
@@ -191,10 +191,21 @@
                 <li>Het eindpercentage ligt altijd tussen 24% en 98%.</li>
                 <li>Geen passend of aansluitend niveau: maximaal 49%.</li>
                 <li>Alleen een aansluitend niveau: maximaal 79%.</li>
+                <li>Bij meerdere middelbareschoolblokken krijgt een onvolledige exacte route maximaal 74%.</li>
                 <li>Exact niveau staat altijd boven aansluitend niveau.</li>
                 <li>Aansluitend niveau staat altijd boven een verkeerd niveau.</li>
-                <li>Pas binnen dezelfde niveaugroep sorteert het percentage.</li>
+                <li>Binnen dezelfde niveaugroep krijgt een volledige meerstapsroute voorrang.</li>
+                <li>Daarna sorteert het percentage; gelijke percentages krijgen hetzelfde rangnummer.</li>
               </ul>
+              <div class="rank-flow">
+                <strong>Rangnummer en kleurverloop</strong>
+                <p>De rang gebruikt competitieregels: bijvoorbeeld 1, 1, 3. De kleur loopt van roze via blauw naar oranje.</p>
+                <div>
+                  <template x-for="(color, index) in rankColors" :key="color">
+                    <span :style="`--rank-color: ${color}`" x-text="`${index + 1}.`"></span>
+                  </template>
+                </div>
+              </div>
               <div class="score-warning">
                 <strong>Belangrijk</strong>
                 <p>Het percentage is een indicatieve matchscore en geen wetenschappelijke kansberekening.</p>
@@ -214,6 +225,11 @@
           <p class="flow-section-intro">
             Iedere cel toont de daadwerkelijke route die de applicatie nu genereert. “Interesse/baan” wordt daarna ingevuld vanuit vraag 4 of, bij “nog geen idee”, vanuit de eerste interesse van vraag 3.
           </p>
+          <div class="route-color-legend" aria-label="Kleuren van de routekaarten">
+            <span style="--route-color: #DB127A"><i></i>Middelbare school</span>
+            <span style="--route-color: #0094D7"><i></i>Mbo, hbo en wo</span>
+            <span style="--route-color: #ED8C1F"><i></i>Interesse of baan</span>
+          </div>
 
           <div class="route-matrix">
             <template x-for="row in routeRows" :key="row.advice">
@@ -226,7 +242,11 @@
                       <div class="mini-route">
                         <template x-for="(step, stepIndex) in route.path" :key="`${route.ambition}-${stepIndex}`">
                           <span class="mini-route-pair">
-                            <span class="mini-route-step" :class="{ 'mini-route-result': step.type === 'future' }">
+                            <span
+                              class="mini-route-step"
+                              :class="{ 'mini-route-result': step.type === 'future' }"
+                              :style="`--mini-route-color: ${step.color}`"
+                            >
                               <b x-text="step.label"></b>
                               <small x-show="step.duration" x-text="step.duration"></small>
                             </span>
@@ -307,6 +327,7 @@
                 </div>
                 <dl>
                   <div><dt>Niveaus</dt><dd x-text="school.levelsText"></dd></div>
+                  <div><dt>Volledig traject</dt><dd x-text="school.routeCoverageText"></dd></div>
                   <div><dt>Interesses</dt><dd x-text="school.interestsText"></dd></div>
                   <div><dt>Beroepen</dt><dd x-text="school.careersText"></dd></div>
                   <div><dt>Leren</dt><dd x-text="school.learningText"></dd></div>

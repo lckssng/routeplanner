@@ -103,6 +103,11 @@ const QUESTIONS = [
   },
 ];
 
+const SCHOOL_VALUE_LABELS = Object.fromEntries(
+  QUESTIONS.find((question) => question.id === 'values').options
+    .map((option) => [option.value, option.label]),
+);
+
 const SCHOOLS = [
   {
     id: 'brandenberg',
@@ -123,6 +128,7 @@ const SCHOOLS = [
     name: 'De Nieuwe Thermen',
     location: 'heerlen',
     levels: ['vmbo-t', 'havo'],
+    completeLevels: ['vmbo-t'],
     website: 'https://www.nieuwethermen.nl/',
     color: '#00a6df',
     initials: 'NT',
@@ -172,7 +178,7 @@ const SCHOOLS = [
     interests: ['techniek', 'creatief', 'talen'],
     careers: ['techniek', 'ict', 'ondernemen', 'creatief', 'recht'],
     learning: ['denken', 'mix'],
-    values: ['uitdaging', 'projecten', 'modern'],
+    values: ['uitdaging', 'projecten'],
   },
   {
     id: 'eijkhagen',
@@ -221,6 +227,7 @@ const SCHOOLS = [
     name: 'Techniekcollege Parkstad',
     location: 'heerlen',
     levels: ['vmbo-b', 'vmbo-k'],
+    completeLevels: [],
     website: 'https://www.tcpl.nl/',
     color: '#00a6df',
     initials: 'TC',
@@ -228,7 +235,7 @@ const SCHOOLS = [
     interests: ['techniek'],
     careers: ['techniek'],
     learning: ['doen', 'mix'],
-    values: ['klein', 'modern', 'projecten'],
+    values: ['klein', 'projecten'],
   },
 ];
 
@@ -410,6 +417,17 @@ const WO_PROGRAMS = {
 };
 
 const PROGRAM_COLORS = ['#009fe3', '#e51075', '#f7941d'];
+const MATCH_RANK_COLORS = [
+  '#DB127A',
+  '#A43391',
+  '#6E53A9',
+  '#3774C0',
+  '#0094D7',
+  '#3B92A9',
+  '#77907B',
+  '#B28E4D',
+  '#ED8C1F',
+];
 
 const LEVEL_LABELS = {
   praktijk: 'Praktijkonderwijs',
@@ -488,6 +506,30 @@ function routeKey(answers) {
   return fallback || 'ondernemen';
 }
 
+function requiredSecondaryLevels(answers) {
+  const level = inferredLevel(answers);
+  const levels = [level];
+
+  if (answers.ambition === 'wo') {
+    if (level === 'vmbo-t') levels.push('havo', 'vwo');
+    else if (level === 'havo') levels.push('vwo');
+  }
+
+  return levels;
+}
+
+function schoolOffersCompleteSecondaryRoute(school, answers) {
+  const completeLevels = school.completeLevels ?? school.levels;
+
+  return requiredSecondaryLevels(answers).every((level) => {
+    if (level === 'vwo') {
+      return completeLevels.includes('atheneum') || completeLevels.includes('gymnasium');
+    }
+
+    return completeLevels.includes(level);
+  });
+}
+
 function snakePlacement(index, total) {
   const row = Math.floor(index / 3);
   const rowStart = row * 3;
@@ -557,11 +599,11 @@ function buildRouteCards(answers) {
     });
   };
 
-  const addSecondary = (value, duration) => addCard('Middelbare school', value, duration, '#e51075');
-  const addMbo = (levelNumber, duration) => addCard('Mbo', `Mbo niveau ${levelNumber}`, duration, '#f7941d');
-  const addHbo = () => addCard('Hbo', 'Hbo-bachelor', '4 jaar', '#009fe3');
-  const addWoBachelor = () => addCard('Wo', 'Wo-bachelor', '3 jaar', '#7d50c8');
-  const addWoAfterHbo = () => addCard('Wo', 'Schakeltraject + wo-master', 'ongeveer 1–3 jaar', '#7d50c8');
+  const addSecondary = (value, duration) => addCard('Middelbare school', value, duration, '#DB127A');
+  const addMbo = (levelNumber, duration) => addCard('Mbo', `Mbo niveau ${levelNumber}`, duration, '#0094D7');
+  const addHbo = () => addCard('Hbo', 'Hbo-bachelor', '4 jaar', '#0094D7');
+  const addWoBachelor = () => addCard('Wo', 'Wo-bachelor', '3 jaar', '#0094D7');
+  const addWoAfterHbo = () => addCard('Wo', 'Schakeltraject + wo-master', 'ongeveer 1–3 jaar', '#0094D7');
 
   addSecondary(LEVEL_LABELS[level] || 'Ontdekken', SECONDARY_DURATIONS[level] || 'duur verschilt');
 
@@ -609,7 +651,7 @@ function buildRouteCards(answers) {
     'Jouw interesse/baan',
     CAREER_LABELS[routeKey(answers)] || 'Nog ontdekken',
     '',
-    '#35a854',
+    '#ED8C1F',
     'future',
   );
 
@@ -620,8 +662,12 @@ function schoolMatch(school, answers) {
   const level = inferredLevel(answers);
   const exactLevel = school.levels.includes(level);
   const adjacentLevel = school.levels.some((item) => ADJACENT_LEVELS[level]?.includes(item));
+  const hasMultipleSecondarySteps = requiredSecondaryLevels(answers).length > 1;
+  const completeSecondaryRoute = hasMultipleSecondarySteps
+    && schoolOffersCompleteSecondaryRoute(school, answers);
   let score = 12;
   const reasons = [];
+  let valueMatchLabel = '';
 
   if (exactLevel) {
     score += answers.advice === 'onbekend' ? 30 : 36;
@@ -664,10 +710,13 @@ function schoolMatch(school, answers) {
   }
 
   if (answers.values === 'dichtbij') {
-    if (school.location === answers.location) score += 8;
+    if (school.location === answers.location) {
+      score += 8;
+      valueMatchLabel = SCHOOL_VALUE_LABELS.dichtbij;
+    }
   } else if (school.values.includes(answers.values)) {
     score += 8;
-    reasons.push('biedt wat jij belangrijk vindt');
+    valueMatchLabel = SCHOOL_VALUE_LABELS[answers.values] || '';
   }
 
   if (school.id === 'techniekcollege') {
@@ -675,16 +724,25 @@ function schoolMatch(school, answers) {
     score += technical ? 8 : -10;
   }
 
+  if (hasMultipleSecondarySteps) {
+    score += completeSecondaryRoute ? 8 : -12;
+  }
+
   let percentage = Math.round(22 + (Math.max(0, score) / 111) * 76);
   if (!exactLevel && !adjacentLevel && answers.advice && answers.advice !== 'onbekend') percentage = Math.min(percentage, 49);
   if (adjacentLevel && !exactLevel) percentage = Math.min(percentage, 79);
+  if (hasMultipleSecondarySteps && exactLevel && !completeSecondaryRoute) {
+    percentage = Math.min(percentage, 74);
+  }
   percentage = Math.max(24, Math.min(98, percentage));
 
   return {
     ...school,
     percentage,
     reasons: reasons.slice(0, 3),
+    valueMatchLabel,
     levelFitRank: exactLevel ? 2 : adjacentLevel ? 1 : 0,
+    completeSecondaryRoute,
   };
 }
 
@@ -722,13 +780,33 @@ export default function routeplanner() {
     },
 
     get matchedSchools() {
-      return SCHOOLS
+      const sortedSchools = SCHOOLS
         .map((school) => schoolMatch(school, this.answers))
-        .sort((a, b) => b.levelFitRank - a.levelFitRank || b.percentage - a.percentage);
+        .sort((a, b) =>
+          b.levelFitRank - a.levelFitRank
+          || Number(b.completeSecondaryRoute) - Number(a.completeSecondaryRoute)
+          || b.percentage - a.percentage,
+        );
+
+      let currentRank = 0;
+      let previousPercentage = null;
+
+      return sortedSchools.map((school, index) => {
+        if (index === 0 || school.percentage !== previousPercentage) {
+          currentRank = index + 1;
+        }
+
+        previousPercentage = school.percentage;
+        return { ...school, rank: currentRank };
+      });
     },
 
     get visibleSchools() {
       return this.showAllSchools ? this.matchedSchools : this.matchedSchools.slice(0, 3);
+    },
+
+    matchRankColor(index) {
+      return MATCH_RANK_COLORS[index] || MATCH_RANK_COLORS.at(-1);
     },
 
     get routeKey() {
@@ -858,4 +936,5 @@ export {
   SCHOOLS,
   LEVEL_LABELS,
   CAREER_LABELS,
+  MATCH_RANK_COLORS,
 };

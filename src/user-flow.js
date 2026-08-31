@@ -11,6 +11,7 @@ import routeplanner, {
   SCHOOLS,
   LEVEL_LABELS,
   CAREER_LABELS,
+  MATCH_RANK_COLORS,
 } from './routeplanner.js';
 import './styles.css';
 import './user-flow.css';
@@ -37,7 +38,7 @@ const VALUE_LABELS = {
   dichtbij: 'Dichtbij huis',
   projecten: 'Creatieve vakken & projecten',
   sport: 'Sport & activiteiten',
-  modern: 'Modern gebouw',
+  modern: 'Modern & nieuw gebouw',
 };
 
 const ACADEMIC_LEVELS = ['havo', 'atheneum', 'gymnasium'];
@@ -103,11 +104,14 @@ function optionEffect(questionId, value) {
 
   if (questionId === 'ambition') {
     const wantsAcademic = ['hbo', 'wo'].includes(value);
+    const routeExplanation = value === 'wo'
+      ? ' Bij vmbo GL/TL of havo kunnen meerdere middelbareschoolstappen ontstaan; alleen dan wordt gecontroleerd of die hele middelbareschoolroute op één school kan.'
+      : '';
     return {
       points: '+8 passend schooltype',
-      description: wantsAcademic
+      description: (wantsAcademic
         ? 'Scholen met havo, atheneum of gymnasium krijgen extra punten. Deze keuze bepaalt ook hoeveel onderwijsstappen in de route verschijnen.'
-        : 'Scholen met praktijkonderwijs of vmbo krijgen extra punten. Deze keuze bepaalt ook het mbo-niveau in de route.',
+        : 'Scholen met praktijkonderwijs of vmbo krijgen extra punten. Deze keuze bepaalt ook het mbo-niveau in de route.') + routeExplanation,
       schools: schoolNames((school) => school.levels.some((level) => (wantsAcademic ? ACADEMIC_LEVELS : VOCATIONAL_LEVELS).includes(level))),
     };
   }
@@ -130,7 +134,7 @@ function optionEffect(questionId, value) {
     }
     return {
       points: '+8 bij een match',
-      description: 'Scholen waarvan het profiel deze voorkeur bevat, krijgen extra punten.',
+      description: `Scholen met “${VALUE_LABELS[value]}” in hun profiel krijgen extra punten en tonen precies dit filter als label bij de match.`,
       schools: schoolNames((school) => school.values.includes(value)),
     };
   }
@@ -167,6 +171,7 @@ function routeFor(advice, ambition) {
     label: card.type === 'future' ? 'Interesse/baan' : card.value,
     duration: card.duration,
     type: card.type,
+    color: card.color,
   }));
 }
 
@@ -210,6 +215,11 @@ function buildSchoolProfiles() {
     careersText: school.careers.map((item) => CAREER_LABELS[item] || item).join(', '),
     learningText: school.learning.map((item) => LEARNING_LABELS[item] || item).join(', '),
     valuesText: school.values.map((item) => VALUE_LABELS[item] || item).join(', '),
+    routeCoverageText: school.id === 'nieuwe-thermen'
+      ? 'Vmbo GL/TL volledig; havo alleen in de onderbouw.'
+      : school.id === 'techniekcollege'
+        ? 'Alleen de bovenbouw van vmbo basis en kader.'
+        : 'Alle genoemde middelbareschoolniveaus zijn volledig te volgen.',
   }));
 }
 
@@ -223,6 +233,7 @@ const SCORE_STEPS = [
   ['Manier van leren', '+7', 'De leerstijl staat in het schoolprofiel.'],
   ['Belangrijk op school', '+8', 'De school biedt de gekozen voorkeur.'],
   ['Techniekcollege', '+8 of −10', 'Extra correctie voor wel of geen technische interesse.'],
+  ['Volledige middelbareschoolroute', '+8 of −12', 'Alleen actief bij twee of meer middelbareschoolblokken; een onvolledige exacte route is dan maximaal 74%.'],
 ];
 
 window.Alpine = Alpine;
@@ -232,6 +243,7 @@ Alpine.data('userFlow', () => ({
   programRows: buildProgramRows(),
   schools: buildSchoolProfiles(),
   scoreSteps: SCORE_STEPS,
+  rankColors: MATCH_RANK_COLORS,
   totalChoices: buildQuestionRows().reduce((total, question) => total + question.options.length, 0),
 
   toggleAll(open) {

@@ -1,7 +1,7 @@
 .flow-body {
-  --flow-pink: #e51075;
-  --flow-orange: #f7941d;
-  --flow-blue: #009fe3;
+  --flow-pink: #DB127A;
+  --flow-orange: #ED8C1F;
+  --flow-blue: #0094D7;
   --flow-green: #35a854;
   --flow-purple: #7d50c8;
   min-width: 320px;
@@ -63,7 +63,7 @@
   overflow: hidden;
   background:
     radial-gradient(circle at 86% 12%, rgb(255 255 255 / 0.2) 0 7rem, transparent 7.1rem),
-    linear-gradient(130deg, #df0f72 0%, #ee287f 55%, #f7941d 140%);
+    linear-gradient(130deg, #DB127A 0%, #d92b88 55%, #ED8C1F 140%);
   padding: 4.7rem 0 4rem;
   color: #ffffff;
 }
@@ -676,6 +676,42 @@
   line-height: 1.4;
 }
 
+.rank-flow {
+  margin-top: 1rem;
+  border-top: 1px solid #4d4448;
+  padding-top: 0.9rem;
+}
+
+.rank-flow > strong {
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.rank-flow > p {
+  margin-top: 0.25rem;
+  color: #d7cfd2;
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+.rank-flow > div {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  margin-top: 0.65rem;
+  overflow: hidden;
+  border-radius: 0.45rem;
+}
+
+.rank-flow span {
+  display: grid;
+  min-height: 1.6rem;
+  place-items: center;
+  background: var(--rank-color);
+  color: #ffffff;
+  font-size: 0.58rem;
+  font-weight: 900;
+}
+
 .score-warning {
   margin-top: 1rem;
   border-left: 4px solid var(--flow-orange);
@@ -700,6 +736,29 @@
   display: grid;
   gap: 0.8rem;
   margin-top: 1.5rem;
+}
+
+.route-color-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  margin-top: 0.8rem;
+  color: #62585c;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.route-color-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.route-color-legend i {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.2rem;
+  background: var(--route-color);
 }
 
 .route-matrix-row {
@@ -754,8 +813,9 @@
   display: flex;
   flex-direction: column;
   border-radius: 0.4rem;
-  background: #ffffff;
+  background: var(--mini-route-color, #ffffff);
   padding: 0.4rem 0.48rem;
+  color: #ffffff;
   box-shadow: 0 2px 6px rgb(68 46 55 / 0.06);
 }
 
@@ -767,13 +827,13 @@
 
 .mini-route-step small {
   margin-top: 0.12rem;
-  color: #8a7f83;
+  color: rgb(255 255 255 / 0.86);
   font-size: 0.52rem;
 }
 
 .mini-route-result {
-  background: #dff4e4;
-  color: #23763a;
+  background: var(--mini-route-color, var(--flow-orange));
+  color: #ffffff;
 }
 
 .mini-route-pair > i {
@@ -971,7 +1031,7 @@
 }
 
 .flow-footer {
-  background: #f7941d;
+  background: var(--flow-orange);
   color: #ffffff;
 }
 
@@ -1130,7 +1190,7 @@
   }
 
   .flow-hero {
-    background: #e51075 !important;
+    background: #DB127A !important;
     print-color-adjust: exact;
   }
 

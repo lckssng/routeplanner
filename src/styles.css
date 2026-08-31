@@ -212,16 +212,62 @@ a {
 }
 
 .info-icon {
-  display: grid;
+  position: relative;
+  display: block;
   width: 1.8rem;
   height: 1.8rem;
-  place-items: center;
   border: 2px solid #e51075;
   border-radius: 999px;
   color: #e51075;
-  font-size: 1.05rem;
-  font-weight: 900;
-  line-height: 1;
+}
+
+.info-icon-clock::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.38rem;
+  height: 0.48rem;
+  border-bottom: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+  border-bottom-left-radius: 0.08rem;
+  content: '';
+  transform: translate(-1px, -0.43rem);
+}
+
+.info-icon-check::before {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  width: 0.38rem;
+  height: 0.7rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: '';
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.info-icon-back::before {
+  position: absolute;
+  top: 50%;
+  left: 0.48rem;
+  width: 0.78rem;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  content: '';
+  transform: translateY(-50%);
+}
+
+.info-icon-back::after {
+  position: absolute;
+  top: 50%;
+  left: 0.45rem;
+  width: 0.43rem;
+  height: 0.43rem;
+  border-bottom: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+  content: '';
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .info-item h3 {
@@ -435,22 +481,36 @@ a {
 .answer-icon-red { color: #d24646; }
 
 .answer-check {
-  display: grid;
+  position: relative;
+  display: block;
   width: 1.25rem;
   height: 1.25rem;
-  place-items: center;
-  border-radius: 999px;
-  background: #e51075;
-  color: #ffffff;
-  font-size: 0.72rem;
-  opacity: 0;
-  transform: scale(0.7);
-  transition: opacity 150ms ease, transform 150ms ease;
+  border: 2px solid #ddcfbd;
+  border-radius: 0.32rem;
+  background: #ffffff;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.answer-check::after {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 0.34rem;
+  height: 0.62rem;
+  border: solid #ffffff;
+  border-width: 0 0.16rem 0.16rem 0;
+  content: '';
+  transform: translate(-50%, -55%) rotate(45deg) scale(0);
+  transition: transform 150ms ease;
 }
 
 .answer-card-selected .answer-check {
-  opacity: 1;
-  transform: scale(1);
+  border-color: #e51075;
+  background: #e51075;
+}
+
+.answer-card-selected .answer-check::after {
+  transform: translate(-50%, -55%) rotate(45deg) scale(1);
 }
 
 .quiz-button {
@@ -535,7 +595,7 @@ a {
   position: relative;
   display: flex;
   width: 100%;
-  min-height: 180px;
+  min-height: 160px;
   min-width: 0;
   height: 100%;
   flex-direction: column;
@@ -543,10 +603,12 @@ a {
   justify-content: center;
   border-radius: 0.65rem;
   background: var(--card-color);
-  padding: 1.15rem 0.85rem;
+  padding: 1rem 0.85rem;
   color: #ffffff;
   text-align: center;
-  box-shadow: 0 4px 10px rgb(88 37 60 / 0.08);
+  box-shadow:
+    -9px 0 0 color-mix(in srgb, var(--card-color) 30%, white),
+    0 4px 10px rgb(88 37 60 / 0.08);
 }
 
 .route-result-card:hover,
@@ -657,14 +719,16 @@ a {
 .route-duration {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
   margin-top: 0.85rem;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 0.2);
-  padding: 0.3rem 0.55rem;
-  font-size: 0.68rem;
+  border-radius: 0.08rem;
+  background: #ffffff;
+  padding: 0.38rem 0.58rem 0.42rem;
+  color: var(--card-color);
+  font-size: 0.78rem;
   font-weight: 900;
+  font-style: italic;
   line-height: 1;
+  transform: rotate(-1deg);
 }
 
 .route-program-link {
@@ -672,22 +736,25 @@ a {
   align-items: center;
   gap: 0.35rem;
   margin-top: 0.85rem;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 0.24);
-  padding: 0.38rem 0.7rem;
-  color: #ffffff;
-  font-size: 0.68rem;
+  border-radius: 0.08rem;
+  background: #ffffff;
+  padding: 0.42rem 0.68rem 0.46rem;
+  color: var(--card-color);
+  font-size: 0.74rem;
   font-weight: 900;
+  font-style: italic;
   line-height: 1;
   text-decoration: none;
-  transition: background 150ms ease, color 150ms ease, transform 150ms ease;
+  transform: rotate(-1deg);
+  transition: box-shadow 150ms ease, transform 150ms ease;
 }
 
 .route-program-link:hover,
 .route-program-link:focus-visible {
   background: #ffffff;
-  color: #258b42;
-  transform: translateY(1px);
+  color: var(--card-color);
+  box-shadow: 0 4px 10px rgb(54 34 42 / 0.18);
+  transform: translateY(-1px) rotate(-1deg);
 }
 
 #vervolgopleidingen {
@@ -737,13 +804,39 @@ a {
   transform: translateY(-2px);
 }
 
+.match-score {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.match-rank {
+  position: absolute;
+  z-index: 2;
+  top: -0.35rem;
+  left: -0.35rem;
+  display: grid;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  place-items: center;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: var(--school-color);
+  padding: 0 0.18rem;
+  color: #ffffff;
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
 .match-ring {
   position: relative;
-  display: grid;
+  display: flex;
   width: 3.25rem;
   height: 3.25rem;
   flex: 0 0 auto;
-  place-items: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
   background: conic-gradient(var(--ring-color) calc(var(--score) * 1%), #f0e9e5 0);
 }
@@ -756,12 +849,25 @@ a {
   content: "";
 }
 
-.match-ring span {
+.match-percentage,
+.match-label {
   position: relative;
   z-index: 1;
+}
+
+.match-percentage {
   color: var(--ring-color);
   font-size: 0.78rem;
   font-weight: 900;
+  line-height: 0.95;
+}
+
+.match-label {
+  margin-top: 0.12rem;
+  color: #4f474a;
+  font-size: 0.52rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .school-match-card h3 {
@@ -782,6 +888,11 @@ a {
   font-size: 0.62rem;
   font-weight: 900;
   line-height: 1.15;
+}
+
+.school-route-badge {
+  background: var(--school-color);
+  color: #ffffff;
 }
 
 .school-arrow {

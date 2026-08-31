@@ -83,15 +83,15 @@
 
         <div class="mt-12 grid overflow-hidden rounded-xl bg-[#f9dcea] sm:grid-cols-3 lg:mt-14">
           <article class="info-item">
-            <span class="info-icon" aria-hidden="true">◷</span>
+            <span class="info-icon info-icon-clock" aria-hidden="true"></span>
             <div><h3>±3 minuten</h3><p>De Routeplanner is snel en eenvoudig in te vullen.</p></div>
           </article>
           <article class="info-item">
-            <span class="info-icon" aria-hidden="true">✓</span>
+            <span class="info-icon info-icon-check" aria-hidden="true"></span>
             <div><h3>Niks is fout</h3><p>Het gaat om wat jij leuk en belangrijk vindt.</p></div>
           </article>
           <article class="info-item">
-            <span class="info-icon" aria-hidden="true">↻</span>
+            <span class="info-icon info-icon-back" aria-hidden="true"></span>
             <div><h3>Je kunt altijd terug</h3><p>Je kunt eerdere antwoorden later aanpassen.</p></div>
           </article>
         </div>
@@ -144,7 +144,7 @@
               >
                 <span class="answer-icon" :class="`answer-icon-${option.tone}`" aria-hidden="true" x-text="option.icon"></span>
                 <span x-text="option.label"></span>
-                <span class="answer-check" aria-hidden="true">✓</span>
+                <span class="answer-check" aria-hidden="true"></span>
               </button>
             </template>
           </div>
@@ -233,10 +233,7 @@
                   <p x-text="card.eyebrow"></p>
                   <h2 x-text="card.value"></h2>
                   <template x-if="card.type !== 'future'">
-                    <span class="route-duration">
-                      <span aria-hidden="true">◷</span>
-                      <span x-text="card.duration"></span>
-                    </span>
+                    <span class="route-duration" x-text="card.duration"></span>
                   </template>
                   <template x-if="card.type === 'future'">
                     <a class="route-program-link" href="#vervolgopleidingen">
@@ -266,18 +263,30 @@
               <template x-for="school in visibleSchools" :key="school.id">
                 <a
                   class="school-match-card"
-                  :style="`--school-color: ${school.color}`"
+                  :style="`--school-color: ${matchRankColor(school.rank - 1)}`"
                   :href="school.website"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div class="match-ring" :style="`--score: ${school.percentage}; --ring-color: ${school.color}`">
-                    <span x-text="`${school.percentage}%`"></span>
+                  <div class="match-score">
+                    <span class="match-rank" x-text="`${school.rank}.`"></span>
+                    <div class="match-ring" :style="`--score: ${school.percentage}; --ring-color: ${matchRankColor(school.rank - 1)}`">
+                      <span class="match-percentage" x-text="`${school.percentage}%`"></span>
+                      <span class="match-label">match</span>
+                    </div>
                   </div>
                   <div class="min-w-0 flex-1">
                     <h3 x-text="school.name"></h3>
                     <div class="mt-2 flex flex-wrap gap-1.5">
+                      <span x-show="school.completeSecondaryRoute" class="school-badge school-route-badge">
+                        Volledige middelbareschoolroute
+                      </span>
                       <span class="school-badge" x-text="school.levelLabel"></span>
+                      <span
+                        x-show="school.valueMatchLabel"
+                        class="school-badge"
+                        x-text="school.valueMatchLabel"
+                      ></span>
                       <template x-for="reason in school.reasons" :key="reason">
                         <span class="school-badge" x-text="reason"></span>
                       </template>
@@ -293,9 +302,6 @@
                 <span x-text="showAllSchools ? 'Toon alleen de beste 3' : 'Bekijk alle 9 scholen'"></span>
                 <span aria-hidden="true" x-text="showAllSchools ? '↑' : '↓'"></span>
               </button>
-              <p class="mx-auto mt-3 max-w-[660px] text-xs leading-relaxed text-[#786f73]">
-                Scholen die jouw onderwijsniveau aanbieden staan altijd boven scholen zonder dat niveau. De percentages zijn daarna een indicatieve match op basis van woonplaats, interesses, toekomstbeeld, leerstijl en schoolvoorkeuren.
-              </p>
             </div>
           </section>
 
