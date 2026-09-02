@@ -9,7 +9,7 @@ const footerColumns = [
   },
   {
     title: 'Handige links',
-    links: ['Regelingen', 'Organisatie', 'Ouders & Onderwijs', '9222 reisplanner', 'Schooladvies & Doorstroomtoets', 'Overgang middelbare school'],
+    links: ['Regelingen', 'Organisatie', 'Ouders & Onderwijs', '9292 reisplanner', 'Schooladvies & Doorstroomtoets', 'Overgang middelbare school'],
   },
 ];
 
