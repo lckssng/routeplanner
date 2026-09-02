@@ -32,7 +32,7 @@ npm.cmd run dev
 In PowerShell verschijnt vervolgens een lokaal adres, meestal:
 
 ```text
-http://localhost:5173/
+http://localhost:5173/routeplanner/
 ```
 
 Open dit adres in je browser. Laat het PowerShell-venster open zolang je de routeplanner gebruikt. Stop de server met `Ctrl+C`.
@@ -41,9 +41,9 @@ Open dit adres in je browser. Laat het PowerShell-venster open zolang je de rout
 
 ## Beschikbare pagina's
 
-- Routeplanner: `http://localhost:5173/`
-- Technische userflow: `http://localhost:5173/user-flow.html`
-- Alternatieve flowchart-link: `http://localhost:5173/flowchart.html`
+- Routeplanner: `http://localhost:5173/routeplanner/`
+- Technische userflow: `http://localhost:5173/routeplanner/user-flow.html`
+- Alternatieve flowchart-link: `http://localhost:5173/routeplanner/flowchart.html`
 
 ## Productieversie maken
 
@@ -62,6 +62,25 @@ npm.cmd run preview
 ```
 
 Open daarna het adres dat in PowerShell verschijnt.
+
+## Publiceren via GitHub Pages
+
+De workflow in `.github/workflows/deploy-pages.yml` bouwt en publiceert de website automatisch wanneer je naar de branch `github-pages` pusht.
+
+Stel GitHub eenmalig als volgt in:
+
+1. Open de repository op GitHub en ga naar **Settings** → **Pages**.
+2. Kies bij **Source** voor **GitHub Actions**.
+3. Push de projectbestanden naar de branch `github-pages`.
+4. Controleer de voortgang via het tabblad **Actions**.
+
+Na een geslaagde deployment staat de routeplanner op:
+
+```text
+https://lckssng.github.io/routeplanner/
+```
+
+De Vite-instelling `base: '/routeplanner/'` zorgt ervoor dat scripts, CSS, lettertypen en afbeeldingen vanaf het juiste GitHub Pages-subpad worden geladen.
 
 ## Antwoorden opslaan
 
