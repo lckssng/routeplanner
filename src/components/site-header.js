@@ -10,7 +10,7 @@ class SiteHeader extends HTMLElement {
     this.innerHTML = `
       <header x-data="{ mobileOpen: false }" @keydown.escape.window="mobileOpen = false">
         <div class="bg-[#f7941d] text-white">
-          <div class="mx-auto flex min-h-10 max-w-[1120px] items-center justify-between gap-4 px-5 py-2 text-[0.72rem] font-bold sm:px-8 sm:text-xs lg:px-10">
+          <div class="mx-auto flex min-h-10 max-w-[1120px] items-center justify-between gap-4 px-5 py-2 text-[0.72rem] font-semibold sm:px-8 sm:text-xs lg:px-10">
             <p>Heerlen · Landgraaf · Kerkrade</p>
             <a class="top-link" href="#agenda">Bekijk open dagen <span aria-hidden="true">»</span></a>
           </div>
@@ -19,7 +19,8 @@ class SiteHeader extends HTMLElement {
         <div class="border-b border-[#d7d3d5] bg-white shadow-[0_2px_8px_rgba(42,32,36,0.04)]">
           <div class="mx-auto flex min-h-[78px] max-w-[1120px] items-center justify-between gap-8 px-5 sm:px-8 lg:px-10">
             <a href="#" class="logo" aria-label="Vindjouwschool.nl, naar de startpagina">
-              <span class="text-[#009fe3]">vind</span><span class="text-[#e51075]">jouw</span><span class="text-[#f7941d]">school</span><span class="text-[#3e3a3c]">.nl</span>
+              <span class="logo-strip logo-strip-blue" aria-hidden="true">Vindjouw</span>
+              <span class="logo-strip logo-strip-orange" aria-hidden="true">school.nl</span>
             </a>
 
             <nav class="hidden items-center gap-8 lg:flex" aria-label="Hoofdnavigatie">

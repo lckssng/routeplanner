@@ -84,7 +84,7 @@ const QUESTIONS = [
       { value: 'doen', label: 'Vooral doen & maken', icon: '🛠', tone: 'gray' },
       { value: 'denken', label: 'Vooral denken & ontdekken', icon: '💡', tone: 'gold' },
       { value: 'mix', label: 'Een mix van doen en denken', icon: '⚒', tone: 'gray' },
-      { value: 'buiten', label: 'Leren buiten de klas', icon: '▣', tone: 'brown' },
+      { value: 'buiten', label: 'Leren buiten de klas', icon: '☀', tone: 'orange' },
     ],
   },
   {
@@ -99,6 +99,8 @@ const QUESTIONS = [
       { value: 'projecten', label: 'Creatieve vakken & projecten', icon: '🎨', tone: 'green' },
       { value: 'sport', label: 'Sport & activiteiten', icon: '🏃', tone: 'gold' },
       { value: 'modern', label: 'Modern & nieuw gebouw', icon: '🏫', tone: 'green' },
+      { value: 'doorstromen', label: 'Doorstromen naar een hoger niveau', icon: '↗', tone: 'blue' },
+      { value: 'geen-keuze', label: 'Geen keuze', icon: '?', tone: 'gray' },
     ],
   },
 ];
@@ -108,20 +110,30 @@ const SCHOOL_VALUE_LABELS = Object.fromEntries(
     .map((option) => [option.value, option.label]),
 );
 
+function lowercaseFirst(value = '') {
+  if (!value) return '';
+  return `${value.charAt(0).toLocaleLowerCase('nl-NL')}${value.slice(1)}`;
+}
+
+const INTEREST_LABELS = Object.fromEntries(
+  QUESTIONS.find((question) => question.id === 'interests').options
+    .map((option) => [option.value, option.label]),
+);
+
 const SCHOOLS = [
   {
     id: 'brandenberg',
     name: 'Beroepscollege Brandenberg',
     location: 'landgraaf',
     levels: ['vmbo-b', 'vmbo-k', 'vmbo-t'],
-    website: 'https://brandenberg.bcpl.nl/',
+    website: 'https://brandenberg.bcpl.nl/brugklas-informatie/',
     color: '#e51075',
     initials: 'BB',
     levelLabel: 'vmbo basis, kader & tl',
     interests: ['creatief', 'sport', 'zorg'],
     careers: ['ondernemen', 'zorg', 'creatief', 'sport'],
     learning: ['doen', 'mix', 'buiten'],
-    values: ['klein', 'projecten', 'sport', 'dichtbij'],
+    values: ['klein', 'projecten', 'sport', 'dichtbij', 'doorstromen'],
   },
   {
     id: 'nieuwe-thermen',
@@ -129,84 +141,84 @@ const SCHOOLS = [
     location: 'heerlen',
     levels: ['vmbo-t', 'havo'],
     completeLevels: ['vmbo-t'],
-    website: 'https://www.nieuwethermen.nl/',
+    website: 'https://www.nieuwethermen.nl/groep-8/',
     color: '#00a6df',
     initials: 'NT',
     levelLabel: 'vmbo-t & havo onderbouw',
     interests: ['techniek', 'creatief', 'natuur', 'talen'],
     careers: ['ict', 'ondernemen', 'creatief', 'natuur'],
     learning: ['mix', 'buiten', 'denken'],
-    values: ['uitdaging', 'projecten', 'modern'],
+    values: ['uitdaging', 'projecten', 'modern', 'doorstromen'],
   },
   {
     id: 'sintermeerten',
     name: 'Sintermeertencollege',
     location: 'heerlen',
     levels: ['vmbo-t', 'havo', 'atheneum', 'gymnasium'],
-    website: 'https://www.sintermeerten.nl/',
+    website: 'https://www.sintermeerten.nl/groep-8-ers',
     color: '#8554c8',
     initials: 'SM',
     levelLabel: 'mavo, havo, atheneum & gymnasium',
     interests: ['sport', 'zorg', 'natuur', 'talen'],
     careers: ['zorg', 'sport', 'recht', 'onderwijs'],
     learning: ['denken', 'mix'],
-    values: ['uitdaging', 'sport', 'projecten'],
+    values: ['uitdaging', 'sport', 'projecten', 'doorstromen'],
   },
   {
     id: 'holz',
     name: 'Beroepscollege Holz',
     location: 'kerkrade',
     levels: ['vmbo-b', 'vmbo-k', 'vmbo-t'],
-    website: 'https://holz.bcpl.nl/',
+    website: 'https://holz.bcpl.nl/brugklasinformatie/',
     color: '#f7941d',
     initials: 'BH',
     levelLabel: 'vmbo basis, kader & tl',
     interests: ['techniek', 'creatief', 'zorg'],
     careers: ['techniek', 'zorg', 'creatief', 'onderwijs'],
     learning: ['doen', 'mix'],
-    values: ['klein', 'projecten', 'dichtbij'],
+    values: ['klein', 'projecten', 'dichtbij', 'doorstromen'],
   },
   {
     id: 'bernardinus',
     name: 'Bernardinuscollege',
     location: 'heerlen',
     levels: ['havo', 'atheneum', 'gymnasium'],
-    website: 'https://bernardinuscollege.nl/',
+    website: 'https://bernardinuscollege.nl/groep-7-8/',
     color: '#e51075',
     initials: 'BC',
     levelLabel: 'havo, atheneum & gymnasium',
     interests: ['techniek', 'creatief', 'talen'],
     careers: ['techniek', 'ict', 'ondernemen', 'creatief', 'recht'],
     learning: ['denken', 'mix'],
-    values: ['uitdaging', 'projecten'],
+    values: ['uitdaging', 'projecten', 'doorstromen'],
   },
   {
     id: 'eijkhagen',
     name: 'Eijkhagen College',
     location: 'landgraaf',
     levels: ['vmbo-t', 'havo', 'atheneum', 'gymnasium'],
-    website: 'https://eijkhagen.nl/',
+    website: 'https://eijkhagen.nl/groep-7-8/',
     color: '#f7941d',
     initials: 'EC',
     levelLabel: 'vmbo-tl, havo, atheneum & gymnasium',
     interests: ['techniek', 'creatief', 'sport', 'talen'],
     careers: ['techniek', 'ict', 'ondernemen', 'creatief', 'sport', 'recht'],
     learning: ['denken', 'mix'],
-    values: ['uitdaging', 'sport', 'projecten', 'modern'],
+    values: ['uitdaging', 'sport', 'projecten', 'modern', 'doorstromen'],
   },
   {
     id: 'herle',
     name: 'Beroepscollege Herle',
     location: 'heerlen',
     levels: ['vmbo-b', 'vmbo-k', 'vmbo-t'],
-    website: 'https://herle.bcpl.nl/',
+    website: 'https://herle.bcpl.nl/brugklas-informatie/',
     color: '#00a6df',
     initials: 'HE',
     levelLabel: 'vmbo basis, kader & tl',
     interests: ['techniek', 'creatief', 'zorg'],
     careers: ['techniek', 'ondernemen', 'zorg', 'creatief'],
     learning: ['doen', 'mix', 'buiten'],
-    values: ['klein', 'projecten', 'sport'],
+    values: ['klein', 'projecten', 'sport', 'doorstromen'],
   },
   {
     id: 'ppl',
@@ -235,7 +247,7 @@ const SCHOOLS = [
     interests: ['techniek'],
     careers: ['techniek'],
     learning: ['doen', 'mix'],
-    values: ['klein', 'projecten'],
+    values: ['klein', 'projecten', 'doorstromen'],
   },
 ];
 
@@ -491,19 +503,125 @@ const ADJACENT_LEVELS = {
   gymnasium: ['havo', 'atheneum'],
 };
 
+const INFERRED_LEVEL_BY_AMBITION = {
+  werk: 'praktijk',
+  mbo: 'vmbo-t',
+  hbo: 'havo',
+  wo: 'atheneum',
+};
+
 function emptyAnswers() {
   return Object.fromEntries(QUESTIONS.map((question) => [question.id, question.multi ? [] : null]));
 }
 
+function hasKnownAdvice(answers) {
+  return Boolean(answers.advice && answers.advice !== 'onbekend');
+}
+
 function inferredLevel(answers) {
-  if (answers.advice && answers.advice !== 'onbekend') return answers.advice;
-  return { werk: 'praktijk', mbo: 'vmbo-t', hbo: 'havo', wo: 'atheneum' }[answers.ambition] || 'vmbo-t';
+  if (hasKnownAdvice(answers)) return answers.advice;
+  return INFERRED_LEVEL_BY_AMBITION[answers.ambition] || 'vmbo-t';
 }
 
 function routeKey(answers) {
   if (answers.career && answers.career !== 'onbekend') return answers.career;
   const fallback = answers.interests?.[0];
   return fallback || 'ondernemen';
+}
+
+function hasChosenCareer(answers) {
+  return Boolean(answers.career && answers.career !== 'onbekend');
+}
+
+function selectedInterests(answers) {
+  return (answers.interests || [])
+    .filter((interest) => INTEREST_LABELS[interest])
+    .slice(0, 3);
+}
+
+function formatDutchList(values) {
+  if (values.length < 2) return values[0] || 'Nog ontdekken';
+  if (values.length === 2) return `${values[0]} & ${values[1]}`;
+  return `${values.slice(0, -1).join(', ')} & ${values.at(-1)}`;
+}
+
+function futureRouteChoice(answers) {
+  if (hasChosenCareer(answers)) {
+    return {
+      eyebrow: 'Jouw interesse/baan',
+      value: CAREER_LABELS[answers.career] || 'Nog ontdekken',
+      interests: [],
+    };
+  }
+
+  const interests = selectedInterests(answers);
+  const interestLabels = interests.map((interest) => INTEREST_LABELS[interest]);
+  return {
+    eyebrow: 'Jouw interesse/baan',
+    value: formatDutchList(interestLabels),
+    interests: interestLabels,
+  };
+}
+
+function programsForDirection(direction, ambition) {
+  if (ambition === 'wo') {
+    const programIds = WO_PROGRAMS[direction] || WO_PROGRAMS.ondernemen;
+    return programIds.map((programId) => WO_PROGRAM_CATALOG[programId]);
+  }
+
+  return PROGRAMS[direction] || PROGRAMS.ondernemen;
+}
+
+function recommendedProgramsFor(answers) {
+  const careerChosen = hasChosenCareer(answers);
+  const directions = careerChosen
+    ? [answers.career]
+    : selectedInterests(answers);
+  const effectiveDirections = directions.length ? directions : [routeKey(answers)];
+  const allocation = effectiveDirections.length === 1
+    ? [3]
+    : effectiveDirections.length === 2
+      ? [2, 1]
+      : [1, 1, 1];
+  const selected = [];
+  const usedUrls = new Set();
+
+  effectiveDirections.forEach((direction, directionIndex) => {
+    let remaining = allocation[directionIndex];
+    const candidates = programsForDirection(direction, answers.ambition);
+
+    for (const program of candidates) {
+      if (remaining === 0) break;
+      if (usedUrls.has(program.url)) continue;
+
+      usedUrls.add(program.url);
+      selected.push({
+        ...program,
+        interestLabel: careerChosen ? '' : INTEREST_LABELS[direction],
+      });
+      remaining -= 1;
+    }
+  });
+
+  if (selected.length < 3) {
+    for (const direction of effectiveDirections) {
+      for (const program of programsForDirection(direction, answers.ambition)) {
+        if (selected.length === 3) break;
+        if (usedUrls.has(program.url)) continue;
+
+        usedUrls.add(program.url);
+        selected.push({
+          ...program,
+          interestLabel: careerChosen ? '' : INTEREST_LABELS[direction],
+        });
+      }
+    }
+  }
+
+  return selected.slice(0, 3).map((program, index) => ({
+    ...program,
+    color: PROGRAM_COLORS[index],
+  }));
 }
 
 function requiredSecondaryLevels(answers) {
@@ -581,10 +699,11 @@ function addRouteLayout(cards) {
 function buildRouteCards(answers) {
   const level = inferredLevel(answers);
   const ambition = answers.ambition || 'mbo';
+  const futureChoice = futureRouteChoice(answers);
   const cards = [];
   let cardNumber = 0;
 
-  const addCard = (eyebrow, value, duration, color, type = 'education') => {
+  const addCard = (eyebrow, value, duration, color, type = 'education', interests = []) => {
     cardNumber += 1;
     cards.push({
       id: `route-${cardNumber}`,
@@ -593,6 +712,7 @@ function buildRouteCards(answers) {
       duration,
       color,
       type,
+      interests,
       info: type === 'future'
         ? ''
         : ROUTE_CARD_INFO[value] || 'Deze onderwijsstap helpt je verder richting de vervolgopleiding die bij jouw route past.',
@@ -648,11 +768,12 @@ function buildRouteCards(answers) {
   }
 
   addCard(
-    'Jouw interesse/baan',
-    CAREER_LABELS[routeKey(answers)] || 'Nog ontdekken',
+    futureChoice.eyebrow,
+    futureChoice.value,
     '',
     '#ED8C1F',
     'future',
+    futureChoice.interests,
   );
 
   return addRouteLayout(cards);
@@ -670,7 +791,7 @@ function schoolMatch(school, answers) {
   let valueMatchLabel = '';
 
   if (exactLevel) {
-    score += answers.advice === 'onbekend' ? 30 : 36;
+    score += hasKnownAdvice(answers) ? 36 : 30;
     reasons.push('past bij je niveau');
   } else if (adjacentLevel) {
     score += 16;
@@ -709,7 +830,9 @@ function schoolMatch(school, answers) {
     reasons.push('jouw manier van leren');
   }
 
-  if (answers.values === 'dichtbij') {
+  if (answers.values === 'geen-keuze') {
+    // Deze keuze is bewust neutraal en verandert de schoolmatch niet.
+  } else if (answers.values === 'dichtbij') {
     if (school.location === answers.location) {
       score += 8;
       valueMatchLabel = SCHOOL_VALUE_LABELS.dichtbij;
@@ -729,7 +852,7 @@ function schoolMatch(school, answers) {
   }
 
   let percentage = Math.round(22 + (Math.max(0, score) / 111) * 76);
-  if (!exactLevel && !adjacentLevel && answers.advice && answers.advice !== 'onbekend') percentage = Math.min(percentage, 49);
+  if (!exactLevel && !adjacentLevel && hasKnownAdvice(answers)) percentage = Math.min(percentage, 49);
   if (adjacentLevel && !exactLevel) percentage = Math.min(percentage, 79);
   if (hasMultipleSecondarySteps && exactLevel && !completeSecondaryRoute) {
     percentage = Math.min(percentage, 74);
@@ -738,9 +861,10 @@ function schoolMatch(school, answers) {
 
   return {
     ...school,
+    levelLabel: lowercaseFirst(school.levelLabel),
     percentage,
-    reasons: reasons.slice(0, 3),
-    valueMatchLabel,
+    reasons: reasons.slice(0, 3).map(lowercaseFirst),
+    valueMatchLabel: lowercaseFirst(valueMatchLabel),
     levelFitRank: exactLevel ? 2 : adjacentLevel ? 1 : 0,
     completeSecondaryRoute,
   };
@@ -824,14 +948,19 @@ export default function routeplanner() {
     },
 
     get recommendedPrograms() {
+      return recommendedProgramsFor(this.answers);
+    },
+
+    get programsSummary() {
+      const multipleInterests = !hasChosenCareer(this.answers) && selectedInterests(this.answers).length > 1;
       if (this.answers.ambition === 'wo') {
-        const programIds = WO_PROGRAMS[this.routeKey] || WO_PROGRAMS.ondernemen;
-        return programIds.map((programId, index) => ({
-          ...WO_PROGRAM_CATALOG[programId],
-          color: PROGRAM_COLORS[index],
-        }));
+        return multipleInterests
+          ? 'Drie WO-bachelors in Maastricht, verdeeld over jouw gekozen interesses.'
+          : 'Drie WO-bachelors in Maastricht die passen bij jouw gekozen richting.';
       }
-      return PROGRAMS[this.routeKey] || PROGRAMS.ondernemen;
+      return multipleInterests
+        ? 'Drie opleidingen in Zuid-Limburg, verdeeld over jouw gekozen interesses.'
+        : 'Drie opleidingen in Zuid-Limburg die passen bij jouw gekozen richting.';
     },
 
     showIntro() {

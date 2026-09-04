@@ -8,6 +8,7 @@
       content="Ontdek welke middelbare school en onderwijsroute bij jou past met de Routeplanner."
     />
     <meta name="theme-color" content="#f7941d" />
+    <link rel="stylesheet" href="https://use.typekit.net/xxz5tld.css" />
     <title>Doe de Routeplanner | Vindjouwschool.nl</title>
   </head>
   <body
@@ -24,7 +25,7 @@
         <div class="grid items-center gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
           <div>
             <h1 class="route-title" aria-label="Welkom bij de Routeplanner">
-              <span class="block text-[clamp(2rem,4.1vw,3.75rem)] font-black leading-none text-[#e51075]">
+              <span class="block text-[clamp(2rem,4.1vw,3.75rem)] font-extrabold leading-none text-[#e51075]">
                 Welkom bij
               </span>
               <span class="route-title-banner">de Routeplanner</span>
@@ -37,12 +38,12 @@
             </p>
 
             <div class="mt-8">
-              <h2 class="text-[1.65rem] font-black leading-tight text-[#e51075] sm:text-[1.9rem]">Zo werkt het</h2>
+              <h2 class="text-[1.65rem] font-extrabold leading-tight text-[#e51075] sm:text-[1.9rem]">Zo werkt het</h2>
               <ol class="mt-4 space-y-5">
                 <li class="route-step">
                   <span class="route-step-number bg-[#009fe3]">1</span>
                   <div>
-                    <h3 class="text-[1.08rem] font-extrabold leading-tight text-[#009fe3] sm:text-[1.2rem]">
+                    <h3 class="text-[1.08rem] font-bold leading-tight text-[#009fe3] sm:text-[1.2rem]">
                       Vertel iets over <span class="marker marker-blue">jezelf</span>
                     </h3>
                     <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">Beantwoord een paar korte vragen over je schooladvies, interesses en wensen.</p>
@@ -51,7 +52,7 @@
                 <li class="route-step">
                   <span class="route-step-number bg-[#f7941d]">2</span>
                   <div>
-                    <h3 class="text-[1.08rem] font-extrabold leading-tight text-[#f28b16] sm:text-[1.2rem]">
+                    <h3 class="text-[1.08rem] font-bold leading-tight text-[#f28b16] sm:text-[1.2rem]">
                       <span class="marker marker-orange">Ontdek</span> jouw mogelijkheden
                     </h3>
                     <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">We laten routes zien die aansluiten bij jouw profiel en ambities.</p>
@@ -60,7 +61,7 @@
                 <li class="route-step">
                   <span class="route-step-number bg-[#df1678]">3</span>
                   <div>
-                    <h3 class="text-[1.08rem] font-extrabold leading-tight text-[#df1678] sm:text-[1.2rem]">
+                    <h3 class="text-[1.08rem] font-bold leading-tight text-[#df1678] sm:text-[1.2rem]">
                       Bekijk jouw persoonlijke <span class="marker marker-pink">route</span>
                     </h3>
                     <p class="mt-1 text-[0.92rem] leading-snug text-[#585254]">Ontvang een persoonlijk overzicht met scholen, onderwijsniveaus en vervolgmogelijkheden.</p>
@@ -112,7 +113,7 @@
         aria-labelledby="question-title"
       >
         <div class="quiz-panel">
-          <div class="flex items-center justify-between gap-4 text-xs font-extrabold italic text-[#e51075]">
+          <div class="flex items-center justify-between gap-4 text-xs font-bold italic text-[#e51075]">
             <button type="button" class="quiz-back" @click="back()"><span aria-hidden="true">‹</span> Terug</button>
             <p>Vraag <span x-text="currentStep + 1"></span> van 7</p>
           </div>
@@ -149,7 +150,51 @@
             </template>
           </div>
 
-          <div class="mt-3 min-h-6 text-sm font-bold text-[#c41168]" aria-live="polite">
+          <div
+            class="education-help"
+            :class="{ 'education-help-open': helpOpen }"
+            x-data="{ helpOpen: false }"
+            x-effect="if (question.id !== 'ambition') helpOpen = false"
+            x-show="question.id === 'ambition'"
+          >
+            <button
+              type="button"
+              class="education-help-toggle"
+              :aria-expanded="helpOpen"
+              aria-controls="education-help-panel"
+              @click="helpOpen = !helpOpen"
+            >
+              <span class="education-help-icon" aria-hidden="true">i</span>
+              <span>Wat betekenen MBO, HBO en WO?</span>
+              <svg class="education-help-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m7 9.5 5 5 5-5"></path>
+              </svg>
+            </button>
+            <div
+              id="education-help-panel"
+              class="education-help-panel"
+              :aria-hidden="!helpOpen"
+            >
+              <div class="education-help-panel-inner">
+                <div class="education-help-grid">
+                  <article>
+                    <strong>MBO</strong>
+                    <p>Middelbaar beroepsonderwijs. Je leert vooral voor een beroep, met veel praktijk en stage.</p>
+                  </article>
+                  <article>
+                    <strong>HBO</strong>
+                    <p>Hoger beroepsonderwijs. Je leert theorie én praktijk voor een beroep, meestal aan een hogeschool.</p>
+                  </article>
+                  <article>
+                    <strong>WO</strong>
+                    <p>Wetenschappelijk onderwijs. Je leert onderzoeken en verdiept je in theorie aan een universiteit.</p>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3 min-h-6 text-sm font-semibold text-[#c41168]" aria-live="polite">
             <p x-show="question.multi && !selectionMessage">
               <span x-text="answers.interests.length"></span> van maximaal 3 gekozen
             </p>
@@ -231,7 +276,16 @@
                     ></span>
                   </div>
                   <p x-text="card.eyebrow"></p>
-                  <h2 x-text="card.value"></h2>
+                  <template x-if="card.type !== 'future' || !card.interests.length">
+                    <h2 x-text="card.value"></h2>
+                  </template>
+                  <template x-if="card.type === 'future' && card.interests.length">
+                    <ul class="route-interest-list" aria-label="Jouw gekozen interesses">
+                      <template x-for="interest in card.interests" :key="interest">
+                        <li x-text="interest"></li>
+                      </template>
+                    </ul>
+                  </template>
                   <template x-if="card.type !== 'future'">
                     <span class="route-duration" x-text="card.duration"></span>
                   </template>
@@ -279,7 +333,7 @@
                     <h3 x-text="school.name"></h3>
                     <div class="mt-2 flex flex-wrap gap-1.5">
                       <span x-show="school.completeSecondaryRoute" class="school-badge school-route-badge">
-                        Volledige middelbareschoolroute
+                        volledige middelbareschoolroute
                       </span>
                       <span class="school-badge" x-text="school.levelLabel"></span>
                       <span
@@ -307,12 +361,10 @@
 
           <section id="vervolgopleidingen" class="mt-14" aria-labelledby="programs-title">
             <div class="text-center">
-              <h2 id="programs-title" class="section-ribbon ribbon-orange">Vervolgopleidingen in de buurt</h2>
+              <h2 id="programs-title" class="section-ribbon ribbon-orange">Mogelijke vervolgopleidingen</h2>
               <p
                 class="mt-3 text-sm text-[#625b5e]"
-                x-text="answers.ambition === 'wo'
-                  ? 'Drie WO-bachelors in Maastricht die passen bij jouw gekozen richting.'
-                  : 'Drie opleidingen in Zuid-Limburg die passen bij jouw gekozen richting.'"
+                x-text="programsSummary"
               ></p>
             </div>
 
@@ -326,6 +378,11 @@
                   rel="noopener noreferrer"
                 >
                   <span class="program-level" x-text="program.level"></span>
+                  <span
+                    x-show="program.interestLabel"
+                    class="program-interest"
+                    x-text="program.interestLabel"
+                  ></span>
                   <strong x-text="program.school"></strong>
                   <span x-text="program.name"></span>
                   <i aria-hidden="true">Bekijk opleiding ›</i>

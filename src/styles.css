@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-family: "anona", "Segoe UI", sans-serif;
   color: #3e393b;
   background: #ffffff;
   font-synthesis: none;
@@ -33,12 +33,41 @@ a {
 
 .logo {
   display: inline-flex;
-  align-items: baseline;
+  align-items: flex-start;
+  flex-direction: column;
   flex-shrink: 0;
-  font-size: 1.05rem;
-  font-weight: 900;
-  letter-spacing: -0.055em;
+  gap: 0;
+  padding: 0.15rem 0.2rem;
   text-decoration: none;
+}
+
+.logo-strip {
+  display: block;
+  min-width: 6.4rem;
+  padding: 0.08rem 0.38rem 0.12rem;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0 1px 1px rgb(42 38 40 / 0.5);
+  clip-path: polygon(3% 0, 100% 2%, 97% 100%, 0 98%);
+}
+
+.logo-strip-blue {
+  z-index: 1;
+  background: #0094d7;
+  transform: rotate(-1deg);
+}
+
+.logo-strip-orange {
+  min-width: 5.85rem;
+  margin-top: -0.02rem;
+  margin-left: 0.28rem;
+  background: #f7941d;
+  transform: rotate(-1.6deg);
 }
 
 .top-link,
@@ -60,7 +89,7 @@ a {
   position: relative;
   color: #2f2a2c;
   font-size: 0.82rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .nav-link::after {
@@ -93,7 +122,7 @@ a {
   padding: 0.65rem 1.15rem;
   color: #ffffff;
   font-size: 0.82rem;
-  font-weight: 900;
+  font-weight: 700;
   font-style: italic;
   text-decoration: none;
   white-space: nowrap;
@@ -133,7 +162,7 @@ a {
   padding: 0.75rem 0;
   color: #3c3538;
   font-size: 0.95rem;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration: none;
 }
 
@@ -150,7 +179,7 @@ a {
   padding: 0.12em 0.42em 0.18em;
   color: #ffffff;
   font-size: clamp(2rem, 4.1vw, 3.7rem);
-  font-weight: 900;
+  font-weight: 800;
   font-style: italic;
   line-height: 1;
   white-space: nowrap;
@@ -172,7 +201,7 @@ a {
   border-radius: 999px;
   color: #ffffff;
   font-size: 1.15rem;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1;
 }
 
@@ -273,7 +302,7 @@ a {
 .info-item h3 {
   color: #d5136c;
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -297,7 +326,7 @@ a {
   color: #ffffff;
   font-family: inherit;
   font-size: clamp(1.05rem, 2.3vw, 1.4rem);
-  font-weight: 900;
+  font-weight: 800;
   box-shadow: 0 4px 0 #c8b7bf, 0 7px 15px rgb(185 12 92 / 0.18);
   cursor: pointer;
   transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
@@ -334,7 +363,7 @@ a {
   padding: 0.2rem 0.42rem;
   color: #e58217;
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: 800;
   font-style: italic;
   line-height: 1.1;
   transform: rotate(-1deg);
@@ -350,6 +379,72 @@ a {
   opacity: 0.75;
   text-decoration: underline;
   text-underline-offset: 0.18em;
+}
+
+.footer-social-bar {
+  display: flex;
+  max-width: 1120px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 auto;
+  border-top: 1px solid rgb(255 255 255 / 0.35);
+  padding: 1.15rem 1.25rem 2.6rem;
+}
+
+.footer-social-title {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.footer-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid rgb(255 255 255 / 0.78);
+  border-radius: 0.65rem;
+  background: rgb(255 255 255 / 0.12);
+  padding: 0.55rem 0.85rem;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-style: italic;
+  text-decoration: none;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.footer-social-link:hover,
+.footer-social-link:focus-visible {
+  background: rgb(255 255 255 / 0.24);
+  transform: translateY(-1px);
+}
+
+.footer-social-link svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  flex-shrink: 0;
+  fill: currentcolor;
+  stroke: none;
+}
+
+.footer-social-link:first-child svg {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.8;
+}
+
+.footer-social-link .footer-social-dot {
+  fill: currentcolor;
+  stroke: none;
 }
 
 .quiz-page {
@@ -403,7 +498,7 @@ a {
 .quiz-title {
   color: #e51075;
   font-size: clamp(1.7rem, 5vw, 2.35rem);
-  font-weight: 900;
+  font-weight: 800;
   font-style: italic;
   line-height: 1.06;
 }
@@ -436,7 +531,7 @@ a {
   color: #292527;
   font-family: inherit;
   font-size: 0.98rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.06;
   text-align: left;
   cursor: pointer;
@@ -465,7 +560,7 @@ a {
   border-radius: 0.48rem;
   background: #f4ecdf;
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
 }
 
@@ -513,6 +608,123 @@ a {
   transform: translate(-50%, -55%) rotate(45deg) scale(1);
 }
 
+.education-help {
+  margin-top: 1rem;
+  border: 1px solid #d8edf7;
+  border-radius: 0.65rem;
+  background: #f4fbfe;
+  color: #292527;
+}
+
+.education-help-toggle {
+  display: grid;
+  width: 100%;
+  min-height: 46px;
+  grid-template-columns: 1.65rem 1fr 1.25rem;
+  align-items: center;
+  gap: 0.55rem;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  padding: 0.65rem 0.8rem;
+  color: #007faf;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.education-help-toggle:hover,
+.education-help-toggle:focus-visible {
+  background: #e8f7fc;
+  color: #006f9a;
+}
+
+.education-help-icon {
+  display: grid;
+  width: 1.55rem;
+  height: 1.55rem;
+  place-items: center;
+  border: 2px solid currentcolor;
+  border-radius: 999px;
+  font-family: Arial, sans-serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1;
+}
+
+.education-help-chevron {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+  transform: rotate(0deg);
+  transform-origin: center;
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.education-help-open .education-help-chevron {
+  transform: rotate(180deg);
+}
+
+.education-help-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    grid-template-rows 320ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 180ms ease;
+}
+
+.education-help-open .education-help-panel {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.education-help-panel-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.education-help-grid {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0 0.8rem 0.8rem;
+  transform: translateY(-0.35rem);
+  transition: transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.education-help-open .education-help-grid {
+  transform: translateY(0);
+}
+
+.education-help-grid article {
+  border-radius: 0.5rem;
+  background: #ffffff;
+  padding: 0.7rem 0.75rem;
+  box-shadow: 0 2px 8px rgb(0 127 175 / 0.08);
+}
+
+.education-help-grid strong {
+  color: #0094d7;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.education-help-grid p {
+  margin-top: 0.15rem;
+  color: #514b4d;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
 .quiz-button {
   display: inline-flex;
   min-height: 48px;
@@ -525,7 +737,7 @@ a {
   color: #ffffff;
   font-family: inherit;
   font-size: 0.9rem;
-  font-weight: 900;
+  font-weight: 700;
   font-style: italic;
   cursor: pointer;
   box-shadow: 0 5px 11px rgb(199 35 111 / 0.22);
@@ -555,7 +767,7 @@ a {
 .results-title {
   color: #e51075;
   font-size: clamp(2rem, 6vw, 3.1rem);
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.05;
 }
 
@@ -634,7 +846,7 @@ a {
   color: #ffffff;
   font-family: inherit;
   font-size: 0.82rem;
-  font-weight: 900;
+  font-weight: 700;
   font-style: italic;
   line-height: 1;
   cursor: help;
@@ -659,7 +871,7 @@ a {
   padding: 0.7rem 0.8rem;
   color: #332d30;
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 500;
   font-style: normal;
   line-height: 1.4;
   text-align: left;
@@ -705,15 +917,34 @@ a {
 
 .route-result-card p {
   font-size: 0.68rem;
-  font-weight: 700;
+  font-weight: 600;
   font-style: italic;
 }
 
 .route-result-card h2 {
   margin-top: 0.35rem;
   font-size: clamp(1.08rem, 2.4vw, 1.42rem);
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.05;
+}
+
+.route-interest-list {
+  display: grid;
+  width: 100%;
+  max-width: 11.5rem;
+  gap: 0.28rem;
+  margin-top: 0.45rem;
+  padding: 0;
+  list-style: none;
+}
+
+.route-interest-list li {
+  border-radius: 0.25rem;
+  background: rgb(255 255 255 / 0.2);
+  padding: 0.3rem 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.1;
 }
 
 .route-duration {
@@ -725,7 +956,7 @@ a {
   padding: 0.38rem 0.58rem 0.42rem;
   color: var(--card-color);
   font-size: 0.78rem;
-  font-weight: 900;
+  font-weight: 700;
   font-style: italic;
   line-height: 1;
   transform: rotate(-1deg);
@@ -741,7 +972,7 @@ a {
   padding: 0.42rem 0.68rem 0.46rem;
   color: var(--card-color);
   font-size: 0.74rem;
-  font-weight: 900;
+  font-weight: 700;
   font-style: italic;
   line-height: 1;
   text-decoration: none;
@@ -775,7 +1006,7 @@ a {
   padding: 0.08em 0.25em 0.13em;
   color: #ffffff;
   font-size: clamp(1.55rem, 4vw, 2.2rem);
-  font-weight: 900;
+  font-weight: 800;
   font-style: italic;
   line-height: 1.05;
   transform: rotate(-0.8deg);
@@ -824,7 +1055,7 @@ a {
   padding: 0 0.18rem;
   color: #ffffff;
   font-size: 0.62rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
 }
 
@@ -858,7 +1089,7 @@ a {
 .match-percentage {
   color: var(--ring-color);
   font-size: 0.78rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 0.95;
 }
 
@@ -866,7 +1097,7 @@ a {
   margin-top: 0.12rem;
   color: #4f474a;
   font-size: 0.52rem;
-  font-weight: 900;
+  font-weight: 600;
   line-height: 1;
 }
 
@@ -874,7 +1105,7 @@ a {
   overflow: hidden;
   color: var(--school-color);
   font-size: 1.1rem;
-  font-weight: 900;
+  font-weight: 700;
   font-style: italic;
   line-height: 1.1;
   text-overflow: ellipsis;
@@ -886,7 +1117,7 @@ a {
   padding: 0.17rem 0.38rem;
   color: var(--school-color);
   font-size: 0.62rem;
-  font-weight: 900;
+  font-weight: 600;
   line-height: 1.15;
 }
 
@@ -908,7 +1139,7 @@ a {
   color: #e51075;
   font-family: inherit;
   font-size: 0.9rem;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 0.2em;
   cursor: pointer;
@@ -947,20 +1178,29 @@ a {
   padding: 0.18rem 0.42rem;
   color: #ffffff;
   font-size: 0.66rem;
-  font-weight: 900;
+  font-weight: 700;
+}
+
+.program-interest {
+  margin-top: 0.45rem;
+  color: var(--program-color);
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.15;
 }
 
 .program-card strong {
   margin-top: 0.65rem;
   color: var(--program-color);
   font-size: 0.78rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
-.program-card > span:not(.program-level) {
+.program-card > span:not(.program-level):not(.program-interest) {
   margin-top: 0.15rem;
   font-size: 0.92rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.18;
 }
 
@@ -969,7 +1209,7 @@ a {
   padding-top: 0.75rem;
   color: var(--program-color);
   font-size: 0.72rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .results-action {
@@ -983,7 +1223,7 @@ a {
   color: #ffffff;
   font-family: inherit;
   font-size: 0.78rem;
-  font-weight: 900;
+  font-weight: 700;
   font-style: italic;
   cursor: pointer;
   box-shadow: 0 4px 8px rgb(78 47 58 / 0.14);
@@ -1006,6 +1246,14 @@ a {
 @media (min-width: 640px) {
   .quiz-page {
     padding-top: 3.2rem;
+  }
+
+  .footer-social-bar {
+    padding-inline: 2rem;
+  }
+
+  .education-help-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .route-result-grid {
@@ -1090,6 +1338,11 @@ a {
 }
 
 @media (max-width: 639px) {
+  .footer-social-bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .route-title-banner {
     box-shadow: 5px 0 0 #e51075, -3px 0 0 #e51075;
   }

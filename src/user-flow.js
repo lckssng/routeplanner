@@ -1,10 +1,3 @@
-import '@fontsource/nunito/latin-400.css';
-import '@fontsource/nunito/latin-600.css';
-import '@fontsource/nunito/latin-700.css';
-import '@fontsource/nunito/latin-800.css';
-import '@fontsource/nunito/latin-900.css';
-import '@fontsource/nunito/latin-700-italic.css';
-import '@fontsource/nunito/latin-900-italic.css';
 import Alpine from 'alpinejs';
 import routeplanner, {
   QUESTIONS,
@@ -39,6 +32,8 @@ const VALUE_LABELS = {
   projecten: 'Creatieve vakken & projecten',
   sport: 'Sport & activiteiten',
   modern: 'Modern & nieuw gebouw',
+  doorstromen: 'Doorstromen naar een hoger niveau',
+  'geen-keuze': 'Geen keuze',
 };
 
 const ACADEMIC_LEVELS = ['havo', 'atheneum', 'gymnasium'];
@@ -68,7 +63,7 @@ function optionEffect(questionId, value) {
     if (value === 'onbekend') {
       return {
         points: '+30 op afgeleid niveau',
-        description: 'Het niveau wordt later afgeleid uit de doorleerwens: werk → praktijk, mbo → vmbo GL/TL, hbo → havo en wo → atheneum.',
+        description: 'Bij geen schooladvies of “Weet ik niet” wordt het niveau afgeleid uit de doorleerwens: werk → praktijk, mbo → vmbo GL/TL, hbo → havo en wo → atheneum (vwo).',
         schools: [],
       };
     }
@@ -82,7 +77,7 @@ function optionEffect(questionId, value) {
   if (questionId === 'interests') {
     return {
       points: '+6 per match, max. +18',
-      description: 'Er mogen maximaal drie interesses worden gekozen. Bij “nog geen idee” voor beroep bepaalt de eerste interesse ook de opleidingsrichting.',
+      description: 'Er mogen maximaal drie interesses worden gekozen. Bij “nog geen idee” voor beroep verschijnen alle gekozen interesses in het laatste routeblok en worden de drie opleidingen over deze interesses verdeeld.',
       schools: schoolNames((school) => school.interests.includes(value)),
     };
   }
@@ -91,7 +86,7 @@ function optionEffect(questionId, value) {
     if (value === 'onbekend') {
       return {
         points: '+5 voor iedere school',
-        description: 'Er komt geen beroepsvoordeel voor één school. Voor de vervolgopleidingen wordt de eerste gekozen interesse gebruikt.',
+        description: 'Er komt geen beroepsvoordeel voor één school. Eén interesse geeft drie opleidingen, twee interesses worden 2 + 1 verdeeld en bij drie interesses verschijnt voor iedere interesse één opleiding.',
         schools: [],
       };
     }
@@ -125,11 +120,25 @@ function optionEffect(questionId, value) {
   }
 
   if (questionId === 'values') {
+    if (value === 'geen-keuze') {
+      return {
+        points: 'Geen extra punten',
+        description: 'Deze keuze is neutraal: geen enkele school krijgt extra punten en er verschijnt geen extra filterlabel bij de match.',
+        schools: [],
+      };
+    }
     if (value === 'dichtbij') {
       return {
         points: '+8 in dezelfde plaats',
         description: 'De eerder gekozen woonplaats wordt opnieuw gebruikt. Alleen scholen in die plaats krijgen deze bonus.',
         schools: [],
+      };
+    }
+    if (value === 'doorstromen') {
+      return {
+        points: '+8 bij een match',
+        description: 'Scholen met meerdere aansluitende onderwijsniveaus krijgen extra punten en tonen “Doorstromen naar een hoger niveau” als filterlabel bij de match.',
+        schools: schoolNames((school) => school.values.includes(value)),
       };
     }
     return {

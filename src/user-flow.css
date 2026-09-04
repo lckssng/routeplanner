@@ -23,7 +23,7 @@
   background: var(--flow-orange);
   color: #ffffff;
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .flow-top-strip-inner,
@@ -48,7 +48,7 @@
   padding: 0.7rem 1rem;
   color: #ffffff;
   font-size: 0.82rem;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
   box-shadow: 0 5px 12px rgb(229 16 117 / 0.2);
 }
@@ -71,7 +71,7 @@
 .flow-kicker,
 .flow-eyebrow {
   font-size: 0.76rem;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -84,7 +84,7 @@
   max-width: 940px;
   margin-top: 0.6rem;
   font-size: clamp(2.4rem, 6vw, 5.1rem);
-  font-weight: 900;
+  font-weight: 800;
   line-height: 0.98;
   text-wrap: balance;
 }
@@ -120,14 +120,14 @@
 
 .flow-stat-grid strong {
   font-size: 2rem;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1;
 }
 
 .flow-stat-grid span {
   margin-top: 0.3rem;
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .flow-legend {
@@ -137,7 +137,7 @@
   margin-top: 1.7rem;
   color: #fff8fb;
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .flow-legend span {
@@ -181,7 +181,7 @@
   padding: 0.5rem 0.75rem;
   color: #5e5559;
   font-size: 0.74rem;
-  font-weight: 900;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -224,7 +224,7 @@
   background: var(--flow-pink);
   color: #ffffff;
   font-size: 0.82rem;
-  font-weight: 900;
+  font-weight: 700;
   box-shadow: 0 5px 12px rgb(229 16 117 / 0.18);
 }
 
@@ -236,7 +236,7 @@
   margin-top: 0.2rem;
   color: #2f292c;
   font-size: clamp(1.65rem, 4vw, 2.65rem);
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.05;
 }
 
@@ -262,7 +262,7 @@
   color: var(--flow-pink);
   font-family: inherit;
   font-size: 0.72rem;
-  font-weight: 900;
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -304,14 +304,14 @@
 .overview-node span {
   color: var(--node-color);
   font-size: 0.65rem;
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
 .overview-node strong {
   margin-top: 0.3rem;
   font-size: 0.82rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -358,12 +358,12 @@
   place-items: center;
   border-radius: 999px;
   background: rgb(255 255 255 / 0.18);
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .flow-three-output h3 {
   font-size: 1.05rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .flow-three-output p {
@@ -418,7 +418,7 @@
   background: var(--flow-pink);
   color: #ffffff;
   font-size: 1.05rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .question-summary-copy {
@@ -430,13 +430,13 @@
 .question-summary-copy small {
   color: var(--flow-pink);
   font-size: 0.64rem;
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
 .question-summary-copy strong {
   font-size: 1.2rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.15;
 }
 
@@ -456,7 +456,7 @@
   padding: 0.38rem 0.65rem;
   color: var(--flow-pink);
   font-size: 0.68rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .question-chevron {
@@ -517,7 +517,7 @@
 
 .flow-option-card h3 {
   font-size: 0.95rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -529,7 +529,7 @@
   padding: 0.3rem 0.55rem;
   color: #ffffff;
   font-size: 0.62rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .flow-option-card > p {
@@ -553,7 +553,7 @@
 .option-schools strong {
   color: var(--tone-color);
   font-size: 0.62rem;
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
@@ -582,7 +582,7 @@
 .question-connector small {
   margin-top: 0.25rem;
   font-size: 0.62rem;
-  font-weight: 900;
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -620,12 +620,12 @@
   background: #dff5fc;
   color: var(--flow-blue);
   font-size: 0.7rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .score-step strong {
   font-size: 0.82rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .score-step p {
@@ -637,7 +637,7 @@
 .score-step b {
   color: var(--flow-blue);
   font-size: 0.75rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .score-formula-card {
@@ -663,7 +663,7 @@
   color: #ffffff;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .score-formula-card ul {
@@ -684,7 +684,7 @@
 
 .rank-flow > strong {
   font-size: 0.72rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .rank-flow > p {
@@ -709,7 +709,7 @@
   background: var(--rank-color);
   color: #ffffff;
   font-size: 0.58rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .score-warning {
@@ -745,7 +745,7 @@
   margin-top: 0.8rem;
   color: #62585c;
   font-size: 0.72rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .route-color-legend span {
@@ -771,7 +771,7 @@
 .route-matrix-row > h3 {
   color: var(--flow-pink);
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .route-matrix-cells {
@@ -792,7 +792,7 @@
   display: block;
   color: #4b4246;
   font-size: 0.68rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .mini-route {
@@ -821,7 +821,7 @@
 
 .mini-route-step b {
   font-size: 0.58rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.15;
 }
 
@@ -867,13 +867,13 @@
 .program-flow-row summary strong {
   color: var(--flow-orange);
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .program-flow-row summary span {
   color: #776d71;
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .program-flow-row summary i {
@@ -895,7 +895,7 @@
   margin-bottom: 0.55rem;
   color: #51484c;
   font-size: 0.72rem;
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
@@ -929,12 +929,12 @@
   padding: 0.23rem 0.35rem;
   color: #ffffff;
   font-size: 0.57rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .program-columns a strong {
   font-size: 0.74rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -973,13 +973,13 @@
   background: var(--school-color);
   color: #ffffff;
   font-size: 0.7rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .school-profile h3 {
   color: var(--school-color);
   font-size: 0.9rem;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.15;
 }
 
@@ -1004,7 +1004,7 @@
 .school-profile dt {
   color: #4c4447;
   font-size: 0.61rem;
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
@@ -1020,7 +1020,7 @@
   margin-top: 0.9rem;
   color: var(--school-color);
   font-size: 0.68rem;
-  font-weight: 900;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -1045,13 +1045,13 @@
 
 .flow-footer strong {
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .flow-footer a {
   color: #ffffff;
   font-size: 0.76rem;
-  font-weight: 900;
+  font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 0.22em;
 }
