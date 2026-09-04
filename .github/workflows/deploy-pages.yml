@@ -3,7 +3,7 @@ name: Routeplanner publiceren op GitHub Pages
 on:
   push:
     branches:
-      - github-pages
+      - github-pages-new
   workflow_dispatch:
 
 permissions:
