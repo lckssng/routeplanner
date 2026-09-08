@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect x="2" y="2" width="60" height="60" rx="13" fill="#fff"/>
+  <g transform="rotate(-2 32 32)">
+    <path d="M7 12.5 57 12l-1.5 21L6 33.5Z" fill="#0094d7"/>
+    <text x="31.5" y="27.2" fill="#fff" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="12.2" font-style="italic" font-weight="700" text-anchor="middle">Vindjouw</text>
+    <path d="m12 32 46-1-1.5 21L10.5 53Z" fill="#f7941d"/>
+    <text x="34" y="47" fill="#fff" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="12.1" font-style="italic" font-weight="700" text-anchor="middle">school.nl</text>
+  </g>
+</svg>

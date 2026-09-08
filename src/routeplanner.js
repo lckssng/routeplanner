@@ -870,7 +870,7 @@ function schoolMatch(school, answers) {
   };
 }
 
-export default function routeplanner() {
+export default function routeplanner({ storageKey = STORAGE_KEY } = {}) {
   return {
     view: 'intro',
     currentStep: 0,
@@ -880,13 +880,13 @@ export default function routeplanner() {
 
     init() {
       try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        const saved = JSON.parse(localStorage.getItem(storageKey));
         if (!saved || saved.version !== 1) return;
         this.answers = { ...emptyAnswers(), ...saved.answers };
         this.currentStep = Math.min(Math.max(Number(saved.currentStep) || 0, 0), QUESTIONS.length - 1);
         this.view = ['intro', 'quiz', 'results'].includes(saved.view) ? saved.view : 'intro';
       } catch {
-        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(storageKey);
       }
     },
 
@@ -1045,7 +1045,7 @@ export default function routeplanner() {
     },
 
     persist() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      localStorage.setItem(storageKey, JSON.stringify({
         version: 1,
         view: this.view,
         currentStep: this.currentStep,

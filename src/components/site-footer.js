@@ -17,7 +17,7 @@ class SiteFooter extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <footer id="routeplanner">
-        <div class="bg-[#f7941d] text-white">
+        <div class="site-footer-main bg-[#f7941d] text-white">
           <div class="mx-auto grid max-w-[1120px] gap-10 px-5 py-12 sm:grid-cols-2 sm:px-8 lg:grid-cols-3 lg:gap-20 lg:px-10 lg:py-14">
             ${footerColumns
               .map(
@@ -56,20 +56,20 @@ class SiteFooter extends HTMLElement {
               </a>
               <a
                 class="footer-social-link"
-                href="https://www.linkedin.com/company/svo-pl-stichting-voortgezet-onderwijs-parkstad-limburg-/"
+                href="https://www.facebook.com/vindjouwschool.nl/"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Volg SVO|PL op LinkedIn"
+                aria-label="Volg Vindjouwschool.nl op Facebook"
               >
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M6.1 8.3H2.7V21h3.4V8.3ZM4.4 3A2 2 0 1 0 4.4 7a2 2 0 0 0 0-4Zm16.9 10.7c0-3.8-2-5.6-4.8-5.6a4.2 4.2 0 0 0-3.8 2.1V8.3H9.3V21h3.4v-6.3c0-1.7.3-3.3 2.4-3.3s2.8 1.9 2.8 3.4V21h3.4v-7.3Z"></path>
+                  <path d="M13.55 21v-8h2.75l.42-3.2h-3.17V7.75c0-.93.26-1.56 1.6-1.56h1.7V3.33A22.6 22.6 0 0 0 14.37 3c-2.45 0-4.12 1.49-4.12 4.23V9.8H7.48V13h2.77v8h3.3Z"></path>
                 </svg>
-                <span>LinkedIn</span>
+                <span>Facebook</span>
               </a>
             </div>
           </div>
         </div>
-        <div class="bg-white px-5 py-5 text-center text-xs font-semibold text-[#dd7510]">
+        <div class="site-footer-bottom bg-white px-5 py-5 text-center text-xs font-semibold text-[#dd7510]">
           <p>© 2026 Stichting Voortgezet Onderwijs Parkstad Limburg</p>
         </div>
       </footer>

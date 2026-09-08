@@ -8,20 +8,16 @@
       content="Complete user flow en beslislogica van de groep-8 Routeplanner."
     />
     <meta name="theme-color" content="#DB127A" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="https://use.typekit.net/xxz5tld.css" />
-    <title>Complete user flow | Routeplanner</title>
+    <title>User flow en technische uitleg | Routeplanner</title>
   </head>
   <body x-data="userFlow" class="flow-body">
     <header class="flow-site-header">
-      <div class="flow-top-strip">
-        <div class="flow-shell flow-top-strip-inner">
-          <span>Heerlen · Landgraaf · Kerkrade</span>
-          <span>Interne beslisdocumentatie</span>
-        </div>
-      </div>
       <div class="flow-shell flow-nav">
         <a href="./" class="logo" aria-label="Terug naar Vindjouwschool.nl Routeplanner">
-          <span class="text-[#009fe3]">vind</span><span class="text-[#e51075]">jouw</span><span class="text-[#f7941d]">school</span><span class="text-[#3e3a3c]">.nl</span>
+          <span class="logo-strip logo-strip-blue" aria-hidden="true">Vindjouw</span>
+          <span class="logo-strip logo-strip-orange" aria-hidden="true">school.nl</span>
         </a>
         <a class="flow-back-link" href="./">← Terug naar de routeplanner</a>
       </div>
@@ -29,26 +25,20 @@
 
     <main>
       <section class="flow-hero">
-        <div class="flow-shell">
-          <p class="flow-kicker">Volledige beslisboom</p>
-          <h1>Gigantische user flow van de Routeplanner</h1>
-          <p class="flow-hero-copy">
-            Van de eerste klik tot de schoolpercentages, gedeelde rangnummers, volledige middelbareschoolroute en vervolgopleidingen. Hieronder staat wat iedere keuze in de huidige versie doet.
-          </p>
-
-          <div class="flow-stat-grid" aria-label="Samenvatting van de user flow">
-            <article><strong>7</strong><span>vragen</span></article>
-            <article><strong x-text="totalChoices"></strong><span>keuzemogelijkheden</span></article>
-            <article><strong>9</strong><span>middelbare scholen</span></article>
-            <article><strong>3</strong><span>opleidingsadviezen</span></article>
+        <div class="flow-shell flow-hero-layout">
+          <div class="flow-hero-content">
+            <h1>User flow en technische uitleg</h1>
+            <p class="flow-hero-copy">
+              Deze user flow laat zien hoe de Routeplanner groep 8-leerlingen stap voor stap helpt bij het ontdekken van een passende middelbare school en onderwijsroute. Hieronder wordt uitgelegd hoe antwoorden worden opgeslagen, omgerekend naar schoolmatches en vertaald naar een persoonlijke route met mogelijke vervolgopleidingen.
+            </p>
           </div>
 
-          <div class="flow-legend" aria-label="Legenda">
-            <span><i class="legend-question"></i> Vraag</span>
-            <span><i class="legend-choice"></i> Keuze</span>
-            <span><i class="legend-calculation"></i> Berekening</span>
-            <span><i class="legend-result"></i> Resultaat</span>
-          </div>
+          <figure class="flow-hero-visual">
+            <img
+              src="./user-flow-leerlingen.png"
+              alt="Een groep lachende leerlingen kijkt samen naar beneden"
+            />
+          </figure>
         </div>
       </section>
 
@@ -66,7 +56,7 @@
       <div class="flow-shell flow-content">
         <section id="hoofdlijn" class="flow-section">
           <div class="flow-section-heading">
-            <span class="flow-section-number">00</span>
+            <span class="flow-section-number" style="--section-progress: 0">00</span>
             <div>
               <p class="flow-eyebrow">Overzicht</p>
               <h2>De hoofdlijn van begin tot resultaat</h2>
@@ -112,7 +102,7 @@
         <section id="vragen" class="flow-section">
           <div class="flow-section-heading flow-heading-actions">
             <div class="flow-heading-main">
-              <span class="flow-section-number">01–07</span>
+              <span class="flow-section-number flow-section-number-range" style="--section-progress: 63.64">01–07</span>
               <div>
                 <p class="flow-eyebrow">Interactieve details</p>
                 <h2>Wat gebeurt er bij iedere keuze?</h2>
@@ -129,14 +119,20 @@
               <div class="question-flow-step">
                 <details class="flow-question" open>
                   <summary>
-                    <span class="question-number" x-text="question.number"></span>
+                    <span
+                      class="question-number"
+                      :style="`--section-progress: ${(question.number / 11) * 100}`"
+                      x-text="question.number"
+                    ></span>
                     <span class="question-summary-copy">
                       <small x-text="`Vraag ${question.number} van 7`"></small>
                       <strong x-text="question.title"></strong>
                       <em x-text="question.subtitle"></em>
                     </span>
                     <span class="question-choice-count" x-text="`${question.options.length} keuzes`"></span>
-                    <span class="question-chevron" aria-hidden="true">⌄</span>
+                    <svg class="flow-details-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="m7 9.5 5 5 5-5"></path>
+                    </svg>
                   </summary>
 
                   <div class="flow-option-grid">
@@ -167,7 +163,7 @@
 
         <section id="schoolscore" class="flow-section">
           <div class="flow-section-heading">
-            <span class="flow-section-number">08</span>
+            <span class="flow-section-number" style="--section-progress: 72.73">08</span>
             <div>
               <p class="flow-eyebrow">Berekening</p>
               <h2>Van antwoorden naar schoolpercentage</h2>
@@ -207,17 +203,13 @@
                   </template>
                 </div>
               </div>
-              <div class="score-warning">
-                <strong>Belangrijk</strong>
-                <p>Het percentage is een indicatieve matchscore en geen wetenschappelijke kansberekening.</p>
-              </div>
             </aside>
           </div>
         </section>
 
         <section id="routematrix" class="flow-section">
           <div class="flow-section-heading">
-            <span class="flow-section-number">09</span>
+            <span class="flow-section-number" style="--section-progress: 81.82">09</span>
             <div>
               <p class="flow-eyebrow">Routegenerator</p>
               <h2>Iedere combinatie van advies en doorleerwens</h2>
@@ -265,7 +257,7 @@
 
         <section id="opleidingen" class="flow-section">
           <div class="flow-section-heading">
-            <span class="flow-section-number">10</span>
+            <span class="flow-section-number" style="--section-progress: 90.91">10</span>
             <div>
               <p class="flow-eyebrow">Opleidingskeuze</p>
               <h2>Welke vervolgopleidingen verschijnen?</h2>
@@ -281,7 +273,9 @@
                 <summary>
                   <strong x-text="row.label"></strong>
                   <span>3 regionaal + 3 wo</span>
-                  <i aria-hidden="true">⌄</i>
+                  <svg class="flow-details-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m7 9.5 5 5 5-5"></path>
+                  </svg>
                 </summary>
                 <div class="program-columns">
                   <div>
@@ -312,7 +306,7 @@
 
         <section id="schoolprofielen" class="flow-section">
           <div class="flow-section-heading">
-            <span class="flow-section-number">11</span>
+            <span class="flow-section-number" style="--section-progress: 100">11</span>
             <div>
               <p class="flow-eyebrow">Brongegevens</p>
               <h2>Profiel waarop iedere school wordt gematcht</h2>
@@ -345,7 +339,7 @@
     <footer class="flow-footer">
       <div class="flow-shell">
         <strong>Routeplanner user flow</strong>
-        <a href="./">Terug naar de werkende routeplanner →</a>
+        <a href="./">Terug naar de routeplanner</a>
       </div>
     </footer>
 

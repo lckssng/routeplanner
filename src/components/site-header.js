@@ -9,14 +9,14 @@ class SiteHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <header x-data="{ mobileOpen: false }" @keydown.escape.window="mobileOpen = false">
-        <div class="bg-[#f7941d] text-white">
+        <div class="site-header-top bg-[#f7941d] text-white">
           <div class="mx-auto flex min-h-10 max-w-[1120px] items-center justify-between gap-4 px-5 py-2 text-[0.72rem] font-semibold sm:px-8 sm:text-xs lg:px-10">
             <p>Heerlen · Landgraaf · Kerkrade</p>
             <a class="top-link" href="#agenda">Bekijk open dagen <span aria-hidden="true">»</span></a>
           </div>
         </div>
 
-        <div class="border-b border-[#d7d3d5] bg-white shadow-[0_2px_8px_rgba(42,32,36,0.04)]">
+        <div class="site-header-main border-b border-[#d7d3d5] bg-white shadow-[0_2px_8px_rgba(42,32,36,0.04)]">
           <div class="mx-auto flex min-h-[78px] max-w-[1120px] items-center justify-between gap-8 px-5 sm:px-8 lg:px-10">
             <a href="#" class="logo" aria-label="Vindjouwschool.nl, naar de startpagina">
               <span class="logo-strip logo-strip-blue" aria-hidden="true">Vindjouw</span>
@@ -49,7 +49,7 @@ class SiteHeader extends HTMLElement {
 
           <nav
             id="mobile-navigation"
-            class="border-t border-[#eee8eb] bg-white px-5 pb-5 pt-3 lg:hidden"
+            class="site-mobile-navigation border-t border-[#eee8eb] bg-white px-5 pb-5 pt-3 lg:hidden"
             x-cloak
             x-show="mobileOpen"
             x-transition.opacity.duration.180ms

@@ -2,7 +2,8 @@ import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'node:path';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === 'serve' ? '/' : '/routeplanner/',
   plugins: [tailwindcss()],
   build: {
     rollupOptions: {
@@ -10,7 +11,8 @@ export default defineConfig({
         main: resolve(process.cwd(), 'index.html'),
         userFlow: resolve(process.cwd(), 'user-flow.html'),
         flowchart: resolve(process.cwd(), 'flowchart.html'),
+        versionB: resolve(process.cwd(), 'versie-b/index.html'),
       },
     },
   },
-});
+}));
