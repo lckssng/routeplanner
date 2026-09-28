@@ -73,13 +73,11 @@
           </div>
 
           <div class="relative mx-auto w-full max-w-[455px] lg:mx-0 lg:justify-self-end">
-            <div class="route-photo-card">
-              <img
-                src="/src/assets/routeplanner-leerling.png"
-                alt="Een leerling met schoolboeken kijkt enthousiast vooruit"
-                class="h-auto w-full"
-              />
-            </div>
+            <img
+              src="/src/assets/routeplanner-leerling.png"
+              alt="Een leerling met schoolboeken kijkt enthousiast vooruit"
+              class="h-auto w-full"
+            />
           </div>
         </div>
 
@@ -99,7 +97,7 @@
         </div>
 
         <div class="mt-10 flex flex-col items-center">
-          <button type="button" class="start-button" @click="start(true)">
+          <button type="button" class="start-button" @click="start()">
             <span class="start-button-icon" aria-hidden="true">➤</span>
             <span>Start mijn routeplanner</span>
           </button>
@@ -135,7 +133,7 @@
             <p class="quiz-subtitle" x-text="question.subtitle"></p>
           </div>
 
-          <div class="answer-grid" :class="question.columns === 2 ? 'sm:grid-cols-2' : ''">
+          <div class="answer-grid sm:grid-cols-2">
             <template x-for="option in question.options" :key="option.value">
               <button
                 type="button"
@@ -206,7 +204,7 @@
             <button
               x-show="currentStep === 0"
               type="button"
-              class="quiz-button quiz-skip"
+              class="quiz-button"
               @click="canContinue ? next() : skip()"
             >
               <span x-text="canContinue ? 'Volgende' : 'Overslaan'"></span>
@@ -259,7 +257,6 @@
               >
                 <article
                   class="route-result-card"
-                  :class="{ 'route-result-card-future': card.type === 'future' }"
                   :style="`--card-color: ${card.color}`"
                 >
                   <div class="route-info-wrap" x-show="card.type !== 'future'">
@@ -393,7 +390,7 @@
           </section>
 
           <div class="mt-10 flex flex-wrap justify-center gap-3">
-            <button type="button" class="results-action results-action-orange" @click="start(true)">Opnieuw doen <span aria-hidden="true">↻</span></button>
+            <button type="button" class="results-action results-action-orange" @click="start()">Opnieuw doen <span aria-hidden="true">↻</span></button>
             <button type="button" class="results-action results-action-blue" @click="editAnswers()">Antwoorden aanpassen <span aria-hidden="true">‹</span></button>
           </div>
         </div>

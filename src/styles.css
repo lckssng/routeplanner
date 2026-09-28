@@ -225,10 +225,6 @@ a {
   background: #df1678;
 }
 
-.route-photo-card {
-  position: relative;
-}
-
 .info-item {
   display: grid;
   grid-template-columns: 2rem 1fr;
@@ -756,10 +752,6 @@ a {
   box-shadow: none;
 }
 
-.quiz-skip {
-  background: #e51075;
-}
-
 .results-page {
   background: #ffffff;
 }
@@ -982,8 +974,6 @@ a {
 
 .route-program-link:hover,
 .route-program-link:focus-visible {
-  background: #ffffff;
-  color: var(--card-color);
   box-shadow: 0 4px 10px rgb(54 34 42 / 0.18);
   transform: translateY(-1px) rotate(-1deg);
 }

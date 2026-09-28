@@ -21,14 +21,11 @@
 }
 
 .flow-nav {
+  min-height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-}
-
-.flow-nav {
-  min-height: 76px;
 }
 
 .flow-back-link {
@@ -56,6 +53,7 @@
 }
 
 .flow-eyebrow {
+  color: var(--flow-orange);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.035em;
@@ -216,10 +214,6 @@
 
 .flow-section-number-range {
   font-size: 0.66rem;
-}
-
-.flow-eyebrow {
-  color: var(--flow-orange);
 }
 
 .flow-section-heading h2 {
@@ -430,10 +424,6 @@
   background: var(--flow-pink);
   padding: 1.2rem 1.3rem;
   color: #ffffff;
-}
-
-.flow-question[open] summary {
-  background: var(--flow-pink);
 }
 
 .question-number {
@@ -913,10 +903,6 @@
   color: var(--flow-orange);
   font-size: 0.68rem;
   font-weight: 600;
-}
-
-.program-flow-row summary .flow-details-chevron {
-  color: #ffffff;
 }
 
 .program-columns {

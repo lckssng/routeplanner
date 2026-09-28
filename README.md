@@ -61,7 +61,7 @@ Je kunt deze productieversie lokaal controleren met:
 npm.cmd run preview
 ```
 
-Open daarna het adres dat in PowerShell verschijnt.
+Open daarna het adres dat in PowerShell verschijnt, inclusief het productiepad `/routeplanner/`.
 
 ## Antwoorden opslaan
 
@@ -72,4 +72,4 @@ De antwoorden van de leerling worden lokaal in de browser opgeslagen met `localS
 - Alpine.js voor de interactie en gebruikersstatus;
 - Tailwind CSS voor de vormgeving;
 - Vite voor de ontwikkelserver en productiebuild;
-- Nunito als lettertype.
+- Anona als lettertype, met Segoe UI als terugvaloptie.

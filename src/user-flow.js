@@ -1,22 +1,16 @@
 import Alpine from 'alpinejs';
-import routeplanner, {
+import {
   QUESTIONS,
   SCHOOLS,
   LEVEL_LABELS,
   CAREER_LABELS,
+  INTEREST_LABELS,
   MATCH_RANK_COLORS,
+  buildRouteCards,
+  recommendedProgramsFor,
 } from './routeplanner.js';
 import './styles.css';
 import './user-flow.css';
-
-const INTEREST_LABELS = {
-  techniek: 'Techniek & maken',
-  creatief: 'Kunst & creatief',
-  sport: 'Sport & bewegen',
-  zorg: 'Zorg & mensen',
-  natuur: 'Natuur & dieren',
-  talen: 'Talen & wereld',
-};
 
 const LEARNING_LABELS = {
   doen: 'Vooral doen & maken',
@@ -169,14 +163,12 @@ function buildQuestionRows() {
 }
 
 function routeFor(advice, ambition) {
-  const app = routeplanner();
-  Object.assign(app.answers, {
+  return buildRouteCards({
     advice,
     ambition,
     career: 'ondernemen',
     interests: ['techniek'],
-  });
-  return app.routeCards.map((card) => ({
+  }).map((card) => ({
     label: card.type === 'future' ? 'Interesse/baan' : card.value,
     duration: card.duration,
     type: card.type,
@@ -198,13 +190,11 @@ function buildRouteRows() {
 }
 
 function programsFor(direction, ambition) {
-  const app = routeplanner();
-  Object.assign(app.answers, {
+  return recommendedProgramsFor({
     ambition,
     career: direction === 'talen' ? 'onbekend' : direction,
     interests: [direction],
   });
-  return app.recommendedPrograms;
 }
 
 function buildProgramRows() {
@@ -253,7 +243,6 @@ Alpine.data('userFlow', () => ({
   schools: buildSchoolProfiles(),
   scoreSteps: SCORE_STEPS,
   rankColors: MATCH_RANK_COLORS,
-  totalChoices: buildQuestionRows().reduce((total, question) => total + question.options.length, 0),
 
   toggleAll(open) {
     this.$root.querySelectorAll('details').forEach((details) => {

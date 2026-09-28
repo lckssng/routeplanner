@@ -5,7 +5,6 @@ const QUESTIONS = [
     id: 'location',
     title: 'Waar woon je?',
     subtitle: 'Handig om scholen dichtbij te vinden. Je mag deze vraag overslaan.',
-    columns: 2,
     options: [
       { value: 'heerlen', label: 'Heerlen', icon: '●', tone: 'orange' },
       { value: 'landgraaf', label: 'Landgraaf', icon: '●', tone: 'blue' },
@@ -17,7 +16,6 @@ const QUESTIONS = [
     id: 'advice',
     title: 'Welk schooladvies heb je?',
     subtitle: 'Weet je het nog niet zeker? Geen probleem, kies dan de laatste optie.',
-    columns: 2,
     options: [
       { value: 'praktijk', label: 'Praktijk', icon: 'P', tone: 'orange' },
       { value: 'vmbo-b', label: 'Vmbo basis', icon: 'B', tone: 'blue' },
@@ -33,7 +31,6 @@ const QUESTIONS = [
     id: 'interests',
     title: 'Waar liggen je interesses?',
     subtitle: 'Wat maakt je blij? Wat vind je leuk om te doen? Kies er maximaal drie.',
-    columns: 2,
     multi: true,
     max: 3,
     options: [
@@ -49,7 +46,6 @@ const QUESTIONS = [
     id: 'career',
     title: 'Wat lijkt je later een leuke baan?',
     subtitle: 'Nog geen idee? Heel normaal, kies wat het dichtst in de buurt komt.',
-    columns: 2,
     options: [
       { value: 'zorg', label: 'Iets met zorg & mensen', icon: '🩺', tone: 'gray' },
       { value: 'techniek', label: 'Iets met bouwen & techniek', icon: '🏗', tone: 'orange' },
@@ -67,7 +63,6 @@ const QUESTIONS = [
     id: 'ambition',
     title: 'Hoe ver wil je doorleren?',
     subtitle: 'Je mag altijd van gedachten veranderen, je route ligt nooit vast.',
-    columns: 2,
     options: [
       { value: 'werk', label: 'Zo snel mogelijk aan het werk', icon: '💼', tone: 'brown' },
       { value: 'mbo', label: 'MBO-diploma halen', icon: '🏫', tone: 'black' },
@@ -79,7 +74,6 @@ const QUESTIONS = [
     id: 'learning',
     title: 'Hoe leer jij het liefst?',
     subtitle: 'Op welke manier vind jij het leren leuk? Er is geen goed of fout, kies wat bij jou past.',
-    columns: 2,
     options: [
       { value: 'doen', label: 'Vooral doen & maken', icon: '🛠', tone: 'gray' },
       { value: 'denken', label: 'Vooral denken & ontdekken', icon: '💡', tone: 'gold' },
@@ -91,7 +85,6 @@ const QUESTIONS = [
     id: 'values',
     title: 'Wat vind je belangrijk?',
     subtitle: 'Waar voel jij je het fijnst? Wat is het belangrijkste ding waar een school aan moet doen volgens jou.',
-    columns: 2,
     options: [
       { value: 'klein', label: 'Kleinschalige school', icon: '🎒', tone: 'red' },
       { value: 'uitdaging', label: 'Veel keuze & uitdagingen', icon: '⚖', tone: 'gray' },
@@ -523,12 +516,6 @@ function inferredLevel(answers) {
   return INFERRED_LEVEL_BY_AMBITION[answers.ambition] || 'vmbo-t';
 }
 
-function routeKey(answers) {
-  if (answers.career && answers.career !== 'onbekend') return answers.career;
-  const fallback = answers.interests?.[0];
-  return fallback || 'ondernemen';
-}
-
 function hasChosenCareer(answers) {
   return Boolean(answers.career && answers.career !== 'onbekend');
 }
@@ -577,7 +564,7 @@ function recommendedProgramsFor(answers) {
   const directions = careerChosen
     ? [answers.career]
     : selectedInterests(answers);
-  const effectiveDirections = directions.length ? directions : [routeKey(answers)];
+  const effectiveDirections = directions.length ? directions : ['ondernemen'];
   const allocation = effectiveDirections.length === 1
     ? [3]
     : effectiveDirections.length === 2
@@ -870,7 +857,7 @@ function schoolMatch(school, answers) {
   };
 }
 
-export default function routeplanner({ storageKey = STORAGE_KEY } = {}) {
+export default function routeplanner() {
   return {
     view: 'intro',
     currentStep: 0,
@@ -880,13 +867,13 @@ export default function routeplanner({ storageKey = STORAGE_KEY } = {}) {
 
     init() {
       try {
-        const saved = JSON.parse(localStorage.getItem(storageKey));
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
         if (!saved || saved.version !== 1) return;
         this.answers = { ...emptyAnswers(), ...saved.answers };
         this.currentStep = Math.min(Math.max(Number(saved.currentStep) || 0, 0), QUESTIONS.length - 1);
         this.view = ['intro', 'quiz', 'results'].includes(saved.view) ? saved.view : 'intro';
       } catch {
-        localStorage.removeItem(storageKey);
+        localStorage.removeItem(STORAGE_KEY);
       }
     },
 
@@ -933,10 +920,6 @@ export default function routeplanner({ storageKey = STORAGE_KEY } = {}) {
       return MATCH_RANK_COLORS[index] || MATCH_RANK_COLORS.at(-1);
     },
 
-    get routeKey() {
-      return routeKey(this.answers);
-    },
-
     get routeCards() {
       return buildRouteCards(this.answers);
     },
@@ -970,12 +953,10 @@ export default function routeplanner({ storageKey = STORAGE_KEY } = {}) {
       this.moveToTop();
     },
 
-    start(reset = false) {
-      if (reset) {
-        this.answers = emptyAnswers();
-        this.currentStep = 0;
-        this.showAllSchools = false;
-      }
+    start() {
+      this.answers = emptyAnswers();
+      this.currentStep = 0;
+      this.showAllSchools = false;
       this.view = 'quiz';
       this.persist();
       this.moveToTop('vragen');
@@ -1045,7 +1026,7 @@ export default function routeplanner({ storageKey = STORAGE_KEY } = {}) {
     },
 
     persist() {
-      localStorage.setItem(storageKey, JSON.stringify({
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
         version: 1,
         view: this.view,
         currentStep: this.currentStep,
@@ -1065,5 +1046,8 @@ export {
   SCHOOLS,
   LEVEL_LABELS,
   CAREER_LABELS,
+  INTEREST_LABELS,
   MATCH_RANK_COLORS,
+  buildRouteCards,
+  recommendedProgramsFor,
 };
